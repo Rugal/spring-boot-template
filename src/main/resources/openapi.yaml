@@ -1,0 +1,460 @@
+swagger: '2.0'
+info:
+  description: This is a simple API
+  version: 1.0.0
+  title: Simple Inventory API
+  # put the contact info for your development or API team
+  contact:
+    email: rugal.bernstein.0@gmail.com
+
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+
+#  ----------------------------------------------------------
+
+# Added by API Auto Mocking Plugin
+host: virtserver.swaggerhub.com
+basePath: /RugalBernstein/test/1.0.0
+schemes:
+ - https
+ 
+#  ----------------------------------------------------------
+
+# tags are used for organizing operations
+tags:
+- name: student
+  description: Student related operations
+- name: course
+  description: Course related operations
+- name: registration
+  description: Registration related operations
+
+#  ----------------------------------------------------------
+
+definitions:
+  NewStudent:
+    type: object
+    properties:
+      name:
+        type: string
+      age:
+        type: integer
+      gender:
+        type: boolean
+  Student:
+    type: object
+    allOf:
+      - $ref: '#/definitions/NewStudent'
+      - properties:
+          sid:
+            description: Id of student
+            type: integer
+    required:
+      - sid
+  NewCourse:
+    type: object
+    properties:
+      name:
+        type: string
+      credit:
+        type: integer
+        example: 5
+  Course:
+    type: object
+    allOf:
+      - $ref: '#/definitions/NewCourse'
+      - properties:
+          cid:
+            description: Id of course
+            type: integer
+    required:
+      - cid
+  NewRegistration:
+    type: object
+    properties:
+      cid:
+        type: integer
+      sid:
+        type: integer
+      score:
+        type: integer
+    required:
+      - cid
+      - sid
+  Registration:
+    type: object
+    allOf:
+      - $ref: '#/definitions/NewRegistration'
+      - properties:
+          cid:
+            description: Id of registration
+            type: integer
+    required:
+      - rid
+
+  204:
+    description:  Resource deleted
+  400:
+    description:  Bad request
+  401:
+    description:  Request not authenticated
+  403:
+    description:  Request not authorized
+  404:
+    description:  Resource not found
+  405:
+    description:  Request method not found
+  406:
+    description:  Response representation not negotiable
+  409:
+    description:  Resource conflicted
+  
+#  ----------------------------------------------------------
+
+paths:
+  /student/{sid}:
+    parameters:
+      - in: path
+        name: sid
+        description: Student Id
+        required: true
+        type: integer
+    get:
+      tags:
+        - student
+      summary: Get student
+      operationId: getStudent
+      produces:
+        - application/json
+      responses:
+        200:
+          description: Student got
+          schema:
+            $ref: '#/definitions/Student'
+        401:
+          $ref: '#/definitions/401'
+        403:
+          $ref: '#/definitions/403'
+        404:
+          $ref: '#/definitions/404'
+        405:
+          $ref: '#/definitions/405'
+        406:
+          $ref: '#/definitions/406'
+    put:
+      tags:
+        - student
+      summary: Update student
+      operationId: updateStudent
+      description: |
+        Update student by posting JSON.
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: Student
+          schema:
+            $ref: '#/definitions/Student'
+      responses:
+        200:
+          description: Student got
+          schema:
+            $ref: '#/definitions/Student'
+        400:
+          $ref: '#/definitions/400'
+        401:
+          $ref: '#/definitions/401'
+        403:
+          $ref: '#/definitions/403'
+        404:
+          $ref: '#/definitions/404'
+        405:
+          $ref: '#/definitions/405'
+        406:
+          $ref: '#/definitions/406'
+    delete:
+      tags:
+        - student
+      summary: Delete student
+      operationId: deleteStudent
+      responses:
+        204:
+          $ref: '#/definitions/204'
+        401:
+          $ref: '#/definitions/401'
+        403:
+          $ref: '#/definitions/403'
+        404:
+          $ref: '#/definitions/404'
+        405:
+          $ref: '#/definitions/405'
+        406:
+          $ref: '#/definitions/406'
+  /student:
+    post:
+      tags:
+        - student
+      summary: Create student
+      operationId: createStudent
+      description: |
+        Create student by posting JSON.
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: Student
+          schema:
+            $ref: '#/definitions/NewStudent'
+      responses:
+        201:
+          description: Student created
+          schema:
+            $ref: '#/definitions/Student'
+        400:
+          $ref: '#/definitions/400'
+        401:
+          $ref: '#/definitions/401'
+        403:
+          $ref: '#/definitions/403'
+        405:
+          $ref: '#/definitions/405'
+        406:
+          $ref: '#/definitions/406'
+        409:
+          $ref: '#/definitions/409'
+#  --------------------------------
+  /course/{cid}:
+    parameters:
+      - in: path
+        name: cid
+        description: Course Id
+        required: true
+        type: integer
+    get:
+      tags:
+        - course
+      summary: Get course
+      operationId: getCourse
+      produces:
+        - application/json
+      responses:
+        200:
+          description: Course got
+          schema:
+            $ref: '#/definitions/Course'
+        401:
+          $ref: '#/definitions/401'
+        403:
+          $ref: '#/definitions/403'
+        404:
+          $ref: '#/definitions/404'
+        405:
+          $ref: '#/definitions/405'
+        406:
+          $ref: '#/definitions/406'
+    put:
+      tags:
+        - course
+      summary: Update course
+      operationId: updateCourse
+      description: |
+        Update course by posting JSON.
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: Course
+          schema:
+            $ref: '#/definitions/Course'
+      responses:
+        200:
+          description: Course got
+          schema:
+            $ref: '#/definitions/Course'
+        400:
+          $ref: '#/definitions/400'
+        401:
+          $ref: '#/definitions/401'
+        403:
+          $ref: '#/definitions/403'
+        404:
+          $ref: '#/definitions/404'
+        405:
+          $ref: '#/definitions/405'
+        406:
+          $ref: '#/definitions/406'
+    delete:
+      tags:
+        - course
+      summary: Delete course
+      operationId: deleteCourse
+      responses:
+        204:
+          $ref: '#/definitions/204'
+        401:
+          $ref: '#/definitions/401'
+        403:
+          $ref: '#/definitions/403'
+        404:
+          $ref: '#/definitions/404'
+        405:
+          $ref: '#/definitions/405'
+        406:
+          $ref: '#/definitions/406'
+  /course:
+    post:
+      tags:
+        - course
+      summary: Create course
+      operationId: createCourse
+      description: |
+        Create course by posting JSON.
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: Course
+          schema:
+            $ref: '#/definitions/NewCourse'
+      responses:
+        201:
+          description: Course created
+          schema:
+            $ref: '#/definitions/Course'
+        400:
+          $ref: '#/definitions/400'
+        401:
+          $ref: '#/definitions/401'
+        403:
+          $ref: '#/definitions/403'
+        405:
+          $ref: '#/definitions/405'
+        406:
+          $ref: '#/definitions/406'
+        409:
+          $ref: '#/definitions/409'
+#  --------------------------------
+  /registration/{rid}:
+    parameters:
+      - in: path
+        name: rid
+        description: Registration Id
+        required: true
+        type: integer
+    get:
+      tags:
+        - registration
+      summary: Get registration
+      operationId: getRegistration
+      produces:
+        - application/json
+      responses:
+        200:
+          description: Registration got
+          schema:
+            $ref: '#/definitions/Registration'
+        401:
+          $ref: '#/definitions/401'
+        403:
+          $ref: '#/definitions/403'
+        404:
+          $ref: '#/definitions/404'
+        405:
+          $ref: '#/definitions/405'
+        406:
+          $ref: '#/definitions/406'
+    put:
+      tags:
+        - registration
+      summary: Update registration
+      operationId: updateRegistration
+      description: |
+        Update course by posting JSON.
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: Registration
+          schema:
+            $ref: '#/definitions/Registration'
+      responses:
+        200:
+          description: Registration got
+          schema:
+            $ref: '#/definitions/Registration'
+        400:
+          $ref: '#/definitions/400'
+        401:
+          $ref: '#/definitions/401'
+        403:
+          $ref: '#/definitions/403'
+        404:
+          $ref: '#/definitions/404'
+        405:
+          $ref: '#/definitions/405'
+        406:
+          $ref: '#/definitions/406'
+    delete:
+      tags:
+        - registration
+      summary: Delete registration
+      operationId: deleteRegistration
+      responses:
+        204:
+          $ref: '#/definitions/204'
+        401:
+          $ref: '#/definitions/401'
+        403:
+          $ref: '#/definitions/403'
+        404:
+          $ref: '#/definitions/404'
+        405:
+          $ref: '#/definitions/405'
+        406:
+          $ref: '#/definitions/406'
+  /registration:
+    post:
+      tags:
+        - registration
+      summary: Create registration
+      operationId: createRegistration
+      description: |
+        Create registration by posting JSON.
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: Registration
+          schema:
+            $ref: '#/definitions/NewRegistration'
+      responses:
+        201:
+          description: Registration created
+          schema:
+            $ref: '#/definitions/Registration'
+        400:
+          $ref: '#/definitions/400'
+        401:
+          $ref: '#/definitions/401'
+        403:
+          $ref: '#/definitions/403'
+        405:
+          $ref: '#/definitions/405'
+        406:
+          $ref: '#/definitions/406'
+        409:
+          $ref: '#/definitions/409'
+#  ----------------------------------------------------------

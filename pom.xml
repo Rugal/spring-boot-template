@@ -21,6 +21,7 @@
     <!-- versioning -->
     <java.version>1.8</java.version>
     <spring-cloud.version>Greenwich.RC1</spring-cloud.version>
+    <default.package>ga.rugal.upgrade.swagger</default.package>
   </properties>
 
   <dependencies>
@@ -36,13 +37,6 @@
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-web</artifactId>
-      <!-- Exclude the default Jackson dependency -->
-      <exclusions>
-        <exclusion>
-          <groupId>org.springframework.boot</groupId>
-          <artifactId>spring-boot-starter-json</artifactId>
-        </exclusion>
-      </exclusions>
     </dependency>
     <dependency>
       <groupId>org.springframework.cloud</groupId>
@@ -73,10 +67,16 @@
       <artifactId>mockito-core</artifactId>
       <scope>test</scope>
     </dependency>
-    <!-- json -->
+    <!-- swagger -->
     <dependency>
-      <groupId>com.google.code.gson</groupId>
-      <artifactId>gson</artifactId>
+      <groupId>io.springfox</groupId>
+      <artifactId>springfox-swagger2</artifactId>
+      <version>2.9.2</version>
+    </dependency>
+    <dependency>
+      <groupId>io.springfox</groupId>
+      <artifactId>springfox-swagger-ui</artifactId>
+      <version>2.9.2</version>
     </dependency>
     <!-- Auto Append -->
   </dependencies>
@@ -219,6 +219,32 @@
               <goal>integration-test</goal>
               <goal>verify</goal>
             </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <!-- Swagger codegen -->
+      <plugin>
+        <groupId>io.swagger</groupId>
+        <artifactId>swagger-codegen-maven-plugin</artifactId>
+        <version>2.4.0</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>generate</goal>
+            </goals>
+            <configuration>
+              <inputSpec>${project.basedir}/src/main/resources/openapi.yaml</inputSpec>
+              <apiPackage>${default.package}.api</apiPackage>
+              <modelPackage>${default.package}.request</modelPackage>
+              <invokerPackage>${default.package}.invoker</invokerPackage>
+              <generateSupportingFiles>false</generateSupportingFiles>
+              <modelNameSuffix>Dto</modelNameSuffix>
+              <language>spring</language>
+              <configOptions>
+                <java8>true</java8>
+                <library>spring-boot</library>
+              </configOptions>
+            </configuration>
           </execution>
         </executions>
       </plugin>

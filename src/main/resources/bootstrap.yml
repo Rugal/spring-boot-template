@@ -6,7 +6,7 @@
 spring:
   application:
     # Change this name for new micro service every time
-    name: test
+    name: upgrade
   jpa:
     open-in-view: false
   cloud:
