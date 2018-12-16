@@ -1,6 +1,7 @@
 package ga.rugal.upgrade.springmvc.controller;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -23,6 +24,7 @@ public class IndexControllerIntegrationTest extends ControllerClientSideTestBase
     this.mockMvc.perform(get("/")
       .accept(MediaType.APPLICATION_JSON_UTF8))
       .andExpect(status().isOk())
-      .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8));
+      .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+      .andDo(print());
   }
 }

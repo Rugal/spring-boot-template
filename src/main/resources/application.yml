@@ -5,3 +5,8 @@
 eureka:
   client:
     enabled: false
+
+spring:
+  http:
+    converters:
+      preferred-json-mapper: gson
