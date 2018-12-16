@@ -58,6 +58,8 @@
   </dependencyManagement>
 
   <build>
+    <finalName>Deliverable</finalName>
+    
     <plugins>
       <!-- spring boot maven -->
       <plugin>
@@ -92,6 +94,29 @@
               <violationSeverity>info</violationSeverity>
               <skip>false</skip>
             </configuration>
+            <goals>
+              <goal>check</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <!-- findbugs -->
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>findbugs-maven-plugin</artifactId>
+        <version>3.0.5</version>
+        <configuration>
+          <outputDirectory>${project.build.directory}/findbugs</outputDirectory>
+          <effort>Max</effort>
+          <threshold>Low</threshold>
+          <xmlOutput>true</xmlOutput>
+          <failOnError>true</failOnError>
+          <skip>false</skip>
+          <excludeFilterFile>configuration/findbugs-exclude.xml</excludeFilterFile>
+        </configuration>
+        <executions>
+          <execution>
+            <phase>compile</phase>
             <goals>
               <goal>check</goal>
             </goals>
