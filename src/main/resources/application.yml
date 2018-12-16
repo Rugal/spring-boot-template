@@ -1,0 +1,7 @@
+# This configuration should be fetched from Spring Cloud Config
+# Common configuration across different environments
+
+#Spring Service Registry
+eureka:
+  client:
+    enabled: false
