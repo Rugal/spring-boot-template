@@ -1,13 +1,13 @@
 package ga.rugal.upgrade.springmvc.controller;
 
+import java.util.Optional;
 import javax.servlet.http.HttpServletRequest;
 
-import ga.rugal.upgrade.swagger.api.CourseApiController;
+import ga.rugal.upgrade.swagger.api.CourseApi;
 import ga.rugal.upgrade.swagger.request.CourseDto;
 import ga.rugal.upgrade.swagger.request.NewCourseDto;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -18,12 +18,21 @@ import org.springframework.stereotype.Controller;
  * @author Rugal Bernstein
  */
 @Controller
-public class CourseController extends CourseApiController {
+public class CourseController implements CourseApi {
 
-  @Autowired
-  public CourseController(final ObjectMapper jacksonObjectMapper,
-                          final HttpServletRequest request) {
-    super(jacksonObjectMapper, request);
+  @Override
+  public Optional<ObjectMapper> getObjectMapper() {
+    return CourseApi.super.getObjectMapper();
+  }
+
+  @Override
+  public Optional<HttpServletRequest> getRequest() {
+    return CourseApi.super.getRequest();
+  }
+
+  @Override
+  public Optional<String> getAcceptHeader() {
+    return CourseApi.super.getAcceptHeader();
   }
 
   @Override

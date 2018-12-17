@@ -2,12 +2,19 @@ package config;
 
 import ga.rugal.upgrade.springmvc.controller.PackageInfo;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.MediaType;
+import org.springframework.web.servlet.HandlerAdapter;
+import org.springframework.web.servlet.config.annotation.ContentNegotiationConfigurer;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.handler.AbstractHandlerMapping;
+import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter;
+import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 
 /**
  * Java based Web context configuration class. Including argument resolution, message converter,
@@ -24,6 +31,30 @@ public class SpringMvcApplicationContext implements WebMvcConfigurer {
   @Override
   public void configureDefaultServletHandling(final DefaultServletHandlerConfigurer configurer) {
     configurer.enable();
+  }
+
+  @Override
+  public void configureContentNegotiation(final ContentNegotiationConfigurer configurer) {
+    configurer.favorPathExtension(false).favorParameter(false);
+    configurer.defaultContentType(MediaType.APPLICATION_JSON);
+  }
+
+  /**
+   * Handler adapter.
+   */
+  @Bean
+  public HandlerAdapter handlerAdapter() {
+    return new RequestMappingHandlerAdapter();
+  }
+
+  /**
+   * Handler mapping.
+   */
+  @Bean
+  public AbstractHandlerMapping defaultAnnotationHandlerMapping() {
+    final RequestMappingHandlerMapping mapping = new RequestMappingHandlerMapping();
+    mapping.setUseSuffixPatternMatch(false);
+    return mapping;
   }
 
   @Override

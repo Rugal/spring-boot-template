@@ -21,7 +21,7 @@
     <!-- versioning -->
     <java.version>1.8</java.version>
     <spring-cloud.version>Greenwich.RC1</spring-cloud.version>
-    <default.package>ga.rugal.upgrade.swagger</default.package>
+    <swagger.codegen.package>ga.rugal.upgrade.swagger</swagger.codegen.package>
   </properties>
 
   <dependencies>
@@ -30,10 +30,10 @@
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-actuator</artifactId>
     </dependency>
-    <!--    <dependency>
+    <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-data-jpa</artifactId>
-    </dependency>-->
+    </dependency>
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-web</artifactId>
@@ -56,6 +56,17 @@
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-log4j2</artifactId>
     </dependency>
+    <!--    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>javax.servlet-api</artifactId>
+      <version>3.1.0</version>
+    </dependency>-->
+    <!-- jdbc -->
+    <dependency>
+      <groupId>org.postgresql</groupId>
+      <artifactId>postgresql</artifactId>
+      <scope>runtime</scope>
+    </dependency>
     <!-- test -->
     <dependency>
       <groupId>org.springframework.boot</groupId>
@@ -77,6 +88,15 @@
       <groupId>io.springfox</groupId>
       <artifactId>springfox-swagger-ui</artifactId>
       <version>2.9.2</version>
+    </dependency>
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.github.javafaker</groupId>
+      <artifactId>javafaker</artifactId>
+      <version>0.16</version>
     </dependency>
     <!-- Auto Append -->
   </dependencies>
@@ -109,7 +129,7 @@
         <version>3.0.0</version>
         <configuration>
           <configLocation>configuration/checkstyle.xml</configLocation>
-          <excludes>**/generated/**,**/dto/**/*, **/ExceptionController.java</excludes>
+          <excludes>target/**/*,**/dto/**/*, **/ExceptionController.java</excludes>
         </configuration>
         <dependencies>
           <dependency>
@@ -163,7 +183,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-pmd-plugin</artifactId>
-        <version>3.10.0</version>
+        <version>3.11.0</version>
         <configuration>
           <skip>false</skip>
           <failOnViolation>true</failOnViolation>
@@ -234,19 +254,33 @@
             </goals>
             <configuration>
               <inputSpec>${project.basedir}/src/main/resources/openapi.yaml</inputSpec>
-              <apiPackage>${default.package}.api</apiPackage>
-              <modelPackage>${default.package}.request</modelPackage>
-              <invokerPackage>${default.package}.invoker</invokerPackage>
+              <apiPackage>${swagger.codegen.package}.api</apiPackage>
+              <modelPackage>${swagger.codegen.package}.request</modelPackage>
+              <invokerPackage>${swagger.codegen.package}.invoker</invokerPackage>
               <generateSupportingFiles>false</generateSupportingFiles>
               <modelNameSuffix>Dto</modelNameSuffix>
               <language>spring</language>
               <configOptions>
                 <java8>true</java8>
                 <library>spring-boot</library>
+                <dateLibrary>java8</dateLibrary>
+                <interfaceOnly>true</interfaceOnly>
               </configOptions>
             </configuration>
           </execution>
         </executions>
+      </plugin>
+      <!-- flyway plugin -->
+      <plugin>
+        <groupId>org.flywaydb</groupId>
+        <artifactId>flyway-maven-plugin</artifactId>
+        <configuration>
+          <schemas>
+            <schema>test</schema>
+          </schemas>
+          <installedBy>Rugal Bernstein</installedBy>
+          <configFile>src/main/resources/db/local.properties</configFile>
+        </configuration>
       </plugin>
     </plugins>
   </build>
