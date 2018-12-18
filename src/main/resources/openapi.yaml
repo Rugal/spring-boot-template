@@ -93,21 +93,21 @@ definitions:
     required:
       - rid
 
-  204:
+  Response204:
     description:  Resource deleted
-  400:
+  Response400:
     description:  Bad request
-  401:
+  Response401:
     description:  Request not authenticated
-  403:
+  Response403:
     description:  Request not authorized
-  404:
+  Response404:
     description:  Resource not found
-  405:
+  Response405:
     description:  Request method not found
-  406:
+  Response406:
     description:  Response representation not negotiable
-  409:
+  Response409:
     description:  Resource conflicted
   
 #  ----------------------------------------------------------
@@ -133,15 +133,15 @@ paths:
           schema:
             $ref: '#/definitions/Student'
         401:
-          $ref: '#/definitions/401'
+          $ref: '#/definitions/Response401'
         403:
-          $ref: '#/definitions/403'
+          $ref: '#/definitions/Response403'
         404:
-          $ref: '#/definitions/404'
+          $ref: '#/definitions/Response404'
         405:
-          $ref: '#/definitions/405'
+          $ref: '#/definitions/Response405'
         406:
-          $ref: '#/definitions/406'
+          $ref: '#/definitions/Response406'
     put:
       tags:
         - student
@@ -164,17 +164,17 @@ paths:
           schema:
             $ref: '#/definitions/Student'
         400:
-          $ref: '#/definitions/400'
+          $ref: '#/definitions/Response400'
         401:
-          $ref: '#/definitions/401'
+          $ref: '#/definitions/Response401'
         403:
-          $ref: '#/definitions/403'
+          $ref: '#/definitions/Response403'
         404:
-          $ref: '#/definitions/404'
+          $ref: '#/definitions/Response404'
         405:
-          $ref: '#/definitions/405'
+          $ref: '#/definitions/Response405'
         406:
-          $ref: '#/definitions/406'
+          $ref: '#/definitions/Response406'
     delete:
       tags:
         - student
@@ -182,17 +182,17 @@ paths:
       operationId: deleteStudent
       responses:
         204:
-          $ref: '#/definitions/204'
+          $ref: '#/definitions/Response204'
         401:
-          $ref: '#/definitions/401'
+          $ref: '#/definitions/Response401'
         403:
-          $ref: '#/definitions/403'
+          $ref: '#/definitions/Response403'
         404:
-          $ref: '#/definitions/404'
+          $ref: '#/definitions/Response404'
         405:
-          $ref: '#/definitions/405'
+          $ref: '#/definitions/Response405'
         406:
-          $ref: '#/definitions/406'
+          $ref: '#/definitions/Response406'
   /student:
     post:
       tags:
@@ -216,17 +216,17 @@ paths:
           schema:
             $ref: '#/definitions/Student'
         400:
-          $ref: '#/definitions/400'
+          $ref: '#/definitions/Response400'
         401:
-          $ref: '#/definitions/401'
+          $ref: '#/definitions/Response401'
         403:
-          $ref: '#/definitions/403'
+          $ref: '#/definitions/Response403'
         405:
-          $ref: '#/definitions/405'
+          $ref: '#/definitions/Response405'
         406:
-          $ref: '#/definitions/406'
+          $ref: '#/definitions/Response406'
         409:
-          $ref: '#/definitions/409'
+          $ref: '#/definitions/Response409'
 #  --------------------------------
   /course/{cid}:
     parameters:
@@ -248,15 +248,15 @@ paths:
           schema:
             $ref: '#/definitions/Course'
         401:
-          $ref: '#/definitions/401'
+          $ref: '#/definitions/Response401'
         403:
-          $ref: '#/definitions/403'
+          $ref: '#/definitions/Response403'
         404:
-          $ref: '#/definitions/404'
+          $ref: '#/definitions/Response404'
         405:
-          $ref: '#/definitions/405'
+          $ref: '#/definitions/Response405'
         406:
-          $ref: '#/definitions/406'
+          $ref: '#/definitions/Response406'
     put:
       tags:
         - course
@@ -279,17 +279,17 @@ paths:
           schema:
             $ref: '#/definitions/Course'
         400:
-          $ref: '#/definitions/400'
+          $ref: '#/definitions/Response400'
         401:
-          $ref: '#/definitions/401'
+          $ref: '#/definitions/Response401'
         403:
-          $ref: '#/definitions/403'
+          $ref: '#/definitions/Response403'
         404:
-          $ref: '#/definitions/404'
+          $ref: '#/definitions/Response404'
         405:
-          $ref: '#/definitions/405'
+          $ref: '#/definitions/Response405'
         406:
-          $ref: '#/definitions/406'
+          $ref: '#/definitions/Response406'
     delete:
       tags:
         - course
@@ -297,17 +297,17 @@ paths:
       operationId: deleteCourse
       responses:
         204:
-          $ref: '#/definitions/204'
+          $ref: '#/definitions/Response204'
         401:
-          $ref: '#/definitions/401'
+          $ref: '#/definitions/Response401'
         403:
-          $ref: '#/definitions/403'
+          $ref: '#/definitions/Response403'
         404:
-          $ref: '#/definitions/404'
+          $ref: '#/definitions/Response404'
         405:
-          $ref: '#/definitions/405'
+          $ref: '#/definitions/Response405'
         406:
-          $ref: '#/definitions/406'
+          $ref: '#/definitions/Response406'
   /course:
     post:
       tags:
@@ -331,17 +331,17 @@ paths:
           schema:
             $ref: '#/definitions/Course'
         400:
-          $ref: '#/definitions/400'
+          $ref: '#/definitions/Response400'
         401:
-          $ref: '#/definitions/401'
+          $ref: '#/definitions/Response401'
         403:
-          $ref: '#/definitions/403'
+          $ref: '#/definitions/Response403'
         405:
-          $ref: '#/definitions/405'
+          $ref: '#/definitions/Response405'
         406:
-          $ref: '#/definitions/406'
+          $ref: '#/definitions/Response406'
         409:
-          $ref: '#/definitions/409'
+          $ref: '#/definitions/Response409'
 #  --------------------------------
   /registration/{rid}:
     parameters:
@@ -363,15 +363,15 @@ paths:
           schema:
             $ref: '#/definitions/Registration'
         401:
-          $ref: '#/definitions/401'
+          $ref: '#/definitions/Response401'
         403:
-          $ref: '#/definitions/403'
+          $ref: '#/definitions/Response403'
         404:
-          $ref: '#/definitions/404'
+          $ref: '#/definitions/Response404'
         405:
-          $ref: '#/definitions/405'
+          $ref: '#/definitions/Response405'
         406:
-          $ref: '#/definitions/406'
+          $ref: '#/definitions/Response406'
     put:
       tags:
         - registration
@@ -394,17 +394,17 @@ paths:
           schema:
             $ref: '#/definitions/Registration'
         400:
-          $ref: '#/definitions/400'
+          $ref: '#/definitions/Response400'
         401:
-          $ref: '#/definitions/401'
+          $ref: '#/definitions/Response401'
         403:
-          $ref: '#/definitions/403'
+          $ref: '#/definitions/Response403'
         404:
-          $ref: '#/definitions/404'
+          $ref: '#/definitions/Response404'
         405:
-          $ref: '#/definitions/405'
+          $ref: '#/definitions/Response405'
         406:
-          $ref: '#/definitions/406'
+          $ref: '#/definitions/Response406'
     delete:
       tags:
         - registration
@@ -412,17 +412,17 @@ paths:
       operationId: deleteRegistration
       responses:
         204:
-          $ref: '#/definitions/204'
+          $ref: '#/definitions/Response204'
         401:
-          $ref: '#/definitions/401'
+          $ref: '#/definitions/Response401'
         403:
-          $ref: '#/definitions/403'
+          $ref: '#/definitions/Response403'
         404:
-          $ref: '#/definitions/404'
+          $ref: '#/definitions/Response404'
         405:
-          $ref: '#/definitions/405'
+          $ref: '#/definitions/Response405'
         406:
-          $ref: '#/definitions/406'
+          $ref: '#/definitions/Response406'
   /registration:
     post:
       tags:
@@ -446,15 +446,15 @@ paths:
           schema:
             $ref: '#/definitions/Registration'
         400:
-          $ref: '#/definitions/400'
+          $ref: '#/definitions/Response400'
         401:
-          $ref: '#/definitions/401'
+          $ref: '#/definitions/Response401'
         403:
-          $ref: '#/definitions/403'
+          $ref: '#/definitions/Response403'
         405:
-          $ref: '#/definitions/405'
+          $ref: '#/definitions/Response405'
         406:
-          $ref: '#/definitions/406'
+          $ref: '#/definitions/Response406'
         409:
-          $ref: '#/definitions/409'
+          $ref: '#/definitions/Response409'
 #  ----------------------------------------------------------
