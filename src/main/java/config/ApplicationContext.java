@@ -1,5 +1,6 @@
 package config;
 
+import java.util.Properties;
 import javax.sql.DataSource;
 
 import ga.rugal.upgrade.core.entity.PackageInfo;
@@ -11,7 +12,6 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.jpa.JpaTransactionManager;
@@ -31,7 +31,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableJpaRepositories(basePackageClasses = ga.rugal.upgrade.core.dao.PackageInfo.class)
 @EnableTransactionManagement
 @EntityScan(basePackageClasses = PackageInfo.class)
-@PropertySource("classpath:jdbc/${spring.profiles.active}.properties")
 public class ApplicationContext {
 
   public static final String AUTOCOMMIT = "hibernate.connection.autocommit";
@@ -45,6 +44,24 @@ public class ApplicationContext {
   public static final String CONTEXT_CLASS = "hibernate.current_session_context_class";
 
   public static final String DIALECT = "hibernate.dialect";
+
+  @Value("${" + AUTOCOMMIT + "}")
+  private String autocommit;
+
+  @Value("${" + FORMAT_SQL + "}")
+  private String formatSql;
+
+  @Value("${" + AUTO_DDL + "}")
+  private String autoDdl;
+
+  @Value("${" + SHOW_SQL + "}")
+  private String showSql;
+
+  @Value("${" + CONTEXT_CLASS + "}")
+  private String contextClass;
+
+  @Value("${" + DIALECT + "}")
+  private String dialect;
 
   @Value("${jdbc.username}")
   private String username;
@@ -90,14 +107,33 @@ public class ApplicationContext {
 
   //<editor-fold defaultstate="collapsed" desc="Hibernate Session factory configuration">
   /**
+   * Create hibernate properties.
+   *
+   * @return properties
+   */
+  @Bean
+  public Properties hp() {
+    final Properties hibernateProperties = new Properties();
+    hibernateProperties.put(DIALECT, this.dialect);
+    hibernateProperties.put(CONTEXT_CLASS, this.contextClass);
+    hibernateProperties.put(AUTOCOMMIT, this.autocommit);
+    hibernateProperties.put(FORMAT_SQL, this.formatSql);
+    hibernateProperties.put(AUTO_DDL, this.autoDdl);
+    hibernateProperties.put(SHOW_SQL, this.showSql);
+    return hibernateProperties;
+  }
+
+  /**
    * Create session factory.
    *
    * @param dataSource data source
+   * @param hp
    *
    * @return
    */
   @Bean
-  public LocalContainerEntityManagerFactoryBean entityManagerFactory(final DataSource dataSource) {
+  public LocalContainerEntityManagerFactoryBean entityManagerFactory(final DataSource dataSource,
+                                                                     final Properties hp) {
 
     final HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
     vendorAdapter.setDatabase(Database.POSTGRESQL);
@@ -107,6 +143,7 @@ public class ApplicationContext {
     f.setJpaVendorAdapter(vendorAdapter);
     f.setPackagesToScan(PackageInfo.class.getPackage().getName());
     f.setDataSource(dataSource);
+    f.setJpaProperties(hp);
 
     return f;
   }
@@ -121,7 +158,8 @@ public class ApplicationContext {
    * @return
    */
   @Bean
-  public PlatformTransactionManager tm(final LocalContainerEntityManagerFactoryBean emf) {
+  public PlatformTransactionManager transactionManager(
+    final LocalContainerEntityManagerFactoryBean emf) {
     final JpaTransactionManager txManager = new JpaTransactionManager();
     txManager.setEntityManagerFactory(emf.getObject());
     return txManager;
