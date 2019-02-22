@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration scan="false" scanPeriod="60 seconds" debug="true">
+    <springProfile name="log-local">
+        <include resource="org/springframework/boot/logging/logback/base.xml"/>
+    </springProfile>
+
+    <springProfile name="log-elk">
+        <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+            <encoder class="net.logstash.logback.encoder.LogstashEncoder">
+                <fieldNames>
+                    <message>additionalInfo</message>
+                    <logger>logger</logger>
+                    <thread>threadId</thread>
+                    <level>logLevel</level>
+                    <levelValue>[ignore]</levelValue>
+                    <stackTrace>exception</stackTrace>
+                </fieldNames>
+            </encoder>
+        </appender>
+
+        <springProfile name="dev, qa">
+            <root level="INFO">
+                <appender-ref ref="STDOUT"/>
+            </root>
+        </springProfile>
+    </springProfile>
+</configuration>
