@@ -1,8 +1,8 @@
 package ga.rugal.upgrade.springmvc.mapper;
 
 import ga.rugal.upgrade.core.entity.Student;
-import ga.rugal.upgrade.swagger.request.NewStudentDto;
-import ga.rugal.upgrade.swagger.request.StudentDto;
+import ga.rugal.upgrade.swagger.model.NewStudentDto;
+import ga.rugal.upgrade.swagger.model.StudentDto;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;

@@ -178,12 +178,12 @@
             <property name="tokens" value="VARIABLE_DEF,PARAMETER_DEF"/>
         </module>
         <module name="Indentation">
-            <property name="basicOffset" value="2"/>
+            <property name="basicOffset" value="4"/>
             <property name="braceAdjustment" value="0"/>
-            <property name="caseIndent" value="2"/>
-            <property name="throwsIndent" value="2"/>
-            <property name="lineWrappingIndentation" value="2"/>
-            <property name="arrayInitIndent" value="2"/>
+            <property name="caseIndent" value="4"/>
+            <property name="throwsIndent" value="4"/>
+            <property name="lineWrappingIndentation" value="4"/>
+            <property name="arrayInitIndent" value="4"/>
         </module>
         <module name="AbbreviationAsWordInName">
             <property name="ignoreFinal" value="false"/>
@@ -194,7 +194,7 @@
         <module name="ImportOrder">
             <!-- Checks for out of order import statements. -->
             <property name="severity" value="warning"/>
-            <property name="groups" value="/^javax?/, config, ga.rugal, .*"/>
+            <property name="groups" value="/^javax?/, com.bmo.channels.template.config, com.bmo, .*"/>
             <!-- This ensures that static imports go first. -->
             <property name="option" value="top"/>
             <property name="tokens" value="STATIC_IMPORT, IMPORT"/>

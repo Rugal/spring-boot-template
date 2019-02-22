@@ -1,8 +1,8 @@
 package ga.rugal.upgrade.springmvc.mapper;
 
 import ga.rugal.upgrade.core.entity.Registration;
-import ga.rugal.upgrade.swagger.request.NewRegistrationDto;
-import ga.rugal.upgrade.swagger.request.RegistrationDto;
+import ga.rugal.upgrade.swagger.model.NewRegistrationDto;
+import ga.rugal.upgrade.swagger.model.RegistrationDto;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
