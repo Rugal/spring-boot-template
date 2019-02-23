@@ -4,7 +4,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import org.junit.Before;
+import lombok.SneakyThrows;
 import org.junit.Test;
 import org.springframework.http.MediaType;
 
@@ -12,17 +12,22 @@ import org.springframework.http.MediaType;
  *
  * @author Rugal Bernstein
  */
-public class IndexControllerIntegrationTest extends ControllerClientSideTestBase {
+public class CourseControllerIntegrationTest extends ControllerClientSideTestBase {
 
-  @Before
-  public void setUp() {
-  }
-
+  @SneakyThrows
   @Test
-  public void get_200() throws Exception {
-    this.mockMvc.perform(get("/")
+  public void getCourse_200() {
+    this.mockMvc.perform(get("/course/1")
       .accept(MediaType.APPLICATION_JSON_UTF8))
       .andExpect(status().isOk())
       .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8));
+  }
+
+  @SneakyThrows
+  @Test
+  public void getCourse_404() {
+    this.mockMvc.perform(get("/course/0")
+      .accept(MediaType.APPLICATION_JSON_UTF8))
+      .andExpect(status().isNotFound());
   }
 }

@@ -4,6 +4,7 @@ import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.only;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -61,14 +62,15 @@ public class CourseControllerTest extends UnitTestControllerBase {
       .accept(MediaType.APPLICATION_JSON_UTF8))
       .andExpect(status().isOk())
       .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8));
-    verify(this.courseDao, only()).existsById(anyInt());
-    verify(this.courseDao, only()).findById(anyInt());
+    verify(this.courseDao, times(1)).existsById(anyInt());
+    verify(this.courseDao, times(1)).findById(anyInt());
   }
 
   @SneakyThrows
   @Test
   public void getCourse_404() {
     given(this.courseDao.existsById(anyInt())).willReturn(false);
+
     this.mockMvc.perform(get("/course/1")
       .accept(MediaType.APPLICATION_JSON_UTF8))
       .andExpect(status().isNotFound());
