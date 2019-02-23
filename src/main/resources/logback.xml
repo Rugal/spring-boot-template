@@ -13,13 +13,13 @@
     <logger name="org.springframework" additivity="false" level="INFO"/>
     <logger name="org.hibernate" additivity="false" level="ERROR"/>
     <logger name="ch.qos.logback" additivity="false" level="ERROR"/>
-  </springProfile>
 
-  <springProfile name="development, staging">
-    <logger name="org.springframework" additivity="false" level="ERROR"/>
+    <springProfile name="development, staging">
+      <logger name="org.springframework" additivity="false" level="ERROR"/>
 
-    <springProfile name="production">
-      <logger name="ga.rugal" additivity="false" level="ERROR"/>
+      <springProfile name="production">
+        <logger name="ga.rugal" additivity="false" level="ERROR"/>
+      </springProfile>
     </springProfile>
   </springProfile>
 </configuration>

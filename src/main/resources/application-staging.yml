@@ -4,6 +4,10 @@
 #Database
 jdbc:
   driverClassName: org.postgresql.Driver
-  url: jdbc:postgresql://localhost:5432/circletest
+  url: jdbc:postgresql://localhost:5432/postgres
   username: root
   password:
+
+spring:
+  flyway:
+    target: 100

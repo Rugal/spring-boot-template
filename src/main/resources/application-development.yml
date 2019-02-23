@@ -4,15 +4,10 @@
 #Database
 jdbc:
   driverClassName: org.postgresql.Driver
-  url: jdbc:postgresql://localhost:5432/circletest
+  url: jdbc:postgresql://localhost:5432/postgres
   username: root
   password:
 
 spring:
-  jpa:
-    open-in-view: false
-  profiles:
-    #default profile, this can be overriden by environmental variable
-    active: production
   flyway:
     target: 100

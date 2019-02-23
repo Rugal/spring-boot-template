@@ -1,6 +1,5 @@
 package ga.rugal.demo.core.service.impl;
 
-import ga.rugal.demo.core.service.impl.CourseServiceImpl;
 import ga.rugal.UnitTestBase;
 import ga.rugal.demo.core.dao.CourseDao;
 import ga.rugal.demo.core.entity.Course;
@@ -33,5 +32,6 @@ public class CourseServiceImplTest extends UnitTestBase {
   @Test
   public void test() {
     Assert.assertNotNull(this.course);
+    Assert.assertNotNull(this.courseService.getDao());
   }
 }

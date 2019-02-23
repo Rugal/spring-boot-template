@@ -1,11 +1,13 @@
 package ga.rugal.demo.springmvc.controller;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.only;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -76,5 +78,27 @@ public class CourseControllerTest extends UnitTestControllerBase {
       .andExpect(status().isNotFound());
     verify(this.courseDao, only()).existsById(anyInt());
     verify(this.courseDao, never()).findById(anyInt());
+  }
+
+  @SneakyThrows
+  @Test
+  public void deleteCourse_204() {
+    this.mockMvc.perform(delete("/course/1")
+      .accept(MediaType.APPLICATION_JSON_UTF8))
+      .andExpect(status().isNoContent());
+    verify(this.courseDao, times(1)).findById(anyInt());
+    verify(this.courseDao, times(1)).delete(any());
+  }
+
+  @SneakyThrows
+  @Test
+  public void deleteCourse_404() {
+    given(this.courseDao.findById(anyInt())).willReturn(Optional.empty());
+
+    this.mockMvc.perform(delete("/course/1")
+      .accept(MediaType.APPLICATION_JSON_UTF8))
+      .andExpect(status().isNotFound());
+    verify(this.courseDao, only()).findById(anyInt());
+    verify(this.courseDao, never()).delete(any());
   }
 }

@@ -1,5 +1,7 @@
 package ga.rugal.demo.springmvc.controller;
 
+import java.util.Optional;
+
 import ga.rugal.demo.core.entity.Course;
 import ga.rugal.demo.core.service.CourseService;
 import ga.rugal.demo.springmvc.mapper.CourseMapper;
@@ -47,7 +49,7 @@ public class CourseController implements CourseApi {
     LOG.info("Get course [{}]", cid);
     return this.courseService.getDao().existsById(cid)
            ? new ResponseEntity<>(CourseMapper.INSTANCE.from(this.courseService.getDao()
-              .findById(cid).get()),
+                                    .findById(cid).get()),
                                   HttpStatus.OK)
            : new ResponseEntity<>(HttpStatus.NOT_FOUND);
   }
@@ -55,12 +57,18 @@ public class CourseController implements CourseApi {
   @Override
   public ResponseEntity<Void> deleteCourse(final Integer cid) {
     LOG.info("Delete course [{}]", cid);
+    final Optional<Course> findById = this.courseService.getDao().findById(cid);
+    if (findById.isEmpty()) {
+      return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+    this.courseService.getDao().delete(findById.get());
     return new ResponseEntity<>(HttpStatus.NO_CONTENT);
   }
 
   @Override
   public ResponseEntity<CourseDto> createCourse(final NewCourseDto course) {
     LOG.info("Create course");
-    return new ResponseEntity<>(new CourseDto(), HttpStatus.CREATED);
+    final Course save = this.courseService.getDao().save(CourseMapper.INSTANCE.to(course));
+    return new ResponseEntity<>(CourseMapper.INSTANCE.from(save), HttpStatus.CREATED);
   }
 }
