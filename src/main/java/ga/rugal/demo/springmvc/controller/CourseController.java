@@ -15,6 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -49,7 +50,7 @@ public class CourseController implements CourseApi {
     LOG.info("Get course [{}]", cid);
     return this.courseService.getDao().existsById(cid)
            ? new ResponseEntity<>(CourseMapper.INSTANCE.from(this.courseService.getDao()
-                                    .findById(cid).get()),
+        .findById(cid).get()),
                                   HttpStatus.OK)
            : new ResponseEntity<>(HttpStatus.NOT_FOUND);
   }
@@ -66,7 +67,7 @@ public class CourseController implements CourseApi {
   }
 
   @Override
-  public ResponseEntity<CourseDto> createCourse(final NewCourseDto course) {
+  public ResponseEntity<CourseDto> createCourse(final @RequestBody NewCourseDto course) {
     LOG.info("Create course");
     final Course save = this.courseService.getDao().save(CourseMapper.INSTANCE.to(course));
     return new ResponseEntity<>(CourseMapper.INSTANCE.from(save), HttpStatus.CREATED);

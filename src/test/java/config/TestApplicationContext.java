@@ -3,6 +3,9 @@ package config;
 import ga.rugal.demo.core.entity.Course;
 import ga.rugal.demo.core.entity.Registration;
 import ga.rugal.demo.core.entity.Student;
+import ga.rugal.demo.springmvc.mapper.CourseMapper;
+import ga.rugal.demo.swagger.model.CourseDto;
+import ga.rugal.demo.swagger.model.NewCourseDto;
 
 import com.github.javafaker.Faker;
 import org.springframework.context.annotation.Bean;
@@ -41,6 +44,20 @@ public class TestApplicationContext {
 
   @Bean
   @Scope("prototype")
+  public NewCourseDto newCourseDto(final Course course) {
+    final NewCourseDto newCourseDto = new NewCourseDto();
+    newCourseDto.setName(course.getName());
+    return newCourseDto;
+  }
+
+  @Bean
+  @Scope("prototype")
+  public CourseDto courseDto(final Course course) {
+    return CourseMapper.INSTANCE.from(course);
+  }
+
+  @Bean
+  @Scope("prototype")
   public Registration registration(Student student, Course course) {
     Registration registration = new Registration();
     registration.setRid(100);
@@ -48,4 +65,5 @@ public class TestApplicationContext {
     registration.setStudent(student);
     return registration;
   }
+
 }

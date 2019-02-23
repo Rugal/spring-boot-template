@@ -9,6 +9,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -17,7 +18,10 @@ import java.util.Optional;
 import ga.rugal.demo.core.dao.CourseDao;
 import ga.rugal.demo.core.entity.Course;
 import ga.rugal.demo.core.service.CourseService;
+import ga.rugal.demo.swagger.model.CourseDto;
+import ga.rugal.demo.swagger.model.NewCourseDto;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.SneakyThrows;
 import org.junit.Before;
 import org.junit.Test;
@@ -46,7 +50,16 @@ public class CourseControllerTest extends UnitTestControllerBase {
   private CourseDao courseDao;
 
   @Autowired
+  private ObjectMapper objectMapper;
+
+  @Autowired
   private Course course;
+
+  @Autowired
+  private NewCourseDto newCourseDto;
+
+  @Autowired
+  private CourseDto courseDto;
 
   @Before
   public void setUp() {
@@ -55,6 +68,7 @@ public class CourseControllerTest extends UnitTestControllerBase {
 
     given(this.courseDao.existsById(anyInt())).willReturn(true);
     given(this.courseDao.findById(anyInt())).willReturn(Optional.of(this.course));
+    given(this.courseDao.save(any())).willReturn(this.course);
   }
 
   @SneakyThrows
@@ -100,5 +114,17 @@ public class CourseControllerTest extends UnitTestControllerBase {
       .andExpect(status().isNotFound());
     verify(this.courseDao, only()).findById(anyInt());
     verify(this.courseDao, never()).delete(any());
+  }
+
+  @SneakyThrows
+  @Test
+  public void createCourse_201() {
+    this.mockMvc.perform(post("/course")
+      .contentType(MediaType.APPLICATION_JSON_UTF8)
+      .content(this.objectMapper.writeValueAsString(this.newCourseDto))
+      .accept(MediaType.APPLICATION_JSON_UTF8))
+      .andExpect(status().isCreated())
+      .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8));
+    verify(this.courseDao, only()).save(any());
   }
 }
