@@ -1,9 +1,10 @@
 package config;
 
-import ga.rugal.upgrade.core.entity.Course;
-import ga.rugal.upgrade.core.entity.Registration;
-import ga.rugal.upgrade.core.entity.Student;
+import ga.rugal.demo.core.entity.Course;
+import ga.rugal.demo.core.entity.Registration;
+import ga.rugal.demo.core.entity.Student;
 
+import com.github.javafaker.Faker;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
@@ -16,6 +17,11 @@ import org.springframework.context.annotation.Scope;
 public class TestApplicationContext {
 
   @Bean
+  public Faker faker() {
+    return new Faker();
+  }
+
+  @Bean
   @Scope("prototype")
   public Student student() {
     Student student = new Student();
@@ -26,10 +32,10 @@ public class TestApplicationContext {
 
   @Bean
   @Scope("prototype")
-  public Course course() {
+  public Course course(final Faker faker) {
     Course course = new Course();
-    course.setCid(100);
-    course.setName("TEST");
+    course.setCid(faker.number().numberBetween(1, 100));
+    course.setName(faker.name().fullName());
     return course;
   }
 

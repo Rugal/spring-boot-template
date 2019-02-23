@@ -3,7 +3,7 @@ package config;
 import java.util.Properties;
 import javax.sql.DataSource;
 
-import ga.rugal.upgrade.core.entity.PackageInfo;
+import ga.rugal.demo.core.entity.PackageInfo;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.zaxxer.hikari.HikariDataSource;
@@ -28,7 +28,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  */
 @ComponentScan(basePackageClasses = ga.rugal.PackageInfo.class)
 @Configuration
-@EnableJpaRepositories(basePackageClasses = ga.rugal.upgrade.core.dao.PackageInfo.class)
+@EnableJpaRepositories(basePackageClasses = ga.rugal.demo.core.dao.PackageInfo.class)
 @EnableTransactionManagement
 @EntityScan(basePackageClasses = PackageInfo.class)
 public class ApplicationContext {

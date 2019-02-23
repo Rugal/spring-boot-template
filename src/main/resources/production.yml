@@ -1,0 +1,18 @@
+# This configuration should be fetched from Spring Cloud Config
+# environment specific configuration
+
+#Database
+jdbc:
+  driverClassName: org.postgresql.Driver
+  url: jdbc:postgresql://localhost:5432/circletest
+  username: root
+  password:
+
+spring:
+  jpa:
+    open-in-view: false
+  profiles:
+    #default profile, this can be overriden by environmental variable
+    active: production
+  flyway:
+    target: 100

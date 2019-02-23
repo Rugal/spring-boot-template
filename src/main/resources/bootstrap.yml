@@ -6,7 +6,7 @@
 spring:
   application:
     # Change this name for new micro service every time
-    name: upgrade
+    name: demo
   cloud:
     config:
         uri: http://localhost:8080

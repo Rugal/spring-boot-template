@@ -21,5 +21,9 @@ spring:
   jpa:
     open-in-view: false
   profiles:
+    include: swagger
     #default profile, this can be overriden by environmental variable
     active: local
+  flyway:
+    locations: filesystem:configuration/db/migration
+    schemas: test

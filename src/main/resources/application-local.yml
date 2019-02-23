@@ -5,5 +5,5 @@
 jdbc:
   driverClassName: org.postgresql.Driver
   url: jdbc:postgresql://localhost:5432/postgres
-  username: postgres
-  password: 900811
+  username: rugalbernstein
+  password: 

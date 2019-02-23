@@ -1,6 +1,6 @@
 package config;
 
-import ga.rugal.upgrade.springmvc.controller.PackageInfo;
+import ga.rugal.demo.springmvc.controller.PackageInfo;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;

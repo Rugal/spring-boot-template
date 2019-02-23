@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+  <include resource="org/springframework/boot/logging/logback/base.xml"/>
+  <statusListener class="ch.qos.logback.core.status.NopStatusListener" />
+
+  <root level="INFO">
+    <appender-ref ref="CONSOLE" />
+  </root>
+
+  <springProfile name="local, ci">
+    <logger name="ga.rugal" additivity="false" level="TRACE"/>
+    <logger name="config" additivity="false" level="TRACE"/>
+    <logger name="org.springframework" additivity="false" level="INFO"/>
+    <logger name="org.hibernate" additivity="false" level="ERROR"/>
+    <logger name="ch.qos.logback" additivity="false" level="ERROR"/>
+  </springProfile>
+
+  <springProfile name="development, staging">
+    <logger name="org.springframework" additivity="false" level="ERROR"/>
+
+    <springProfile name="production">
+      <logger name="ga.rugal" additivity="false" level="ERROR"/>
+    </springProfile>
+  </springProfile>
+</configuration>
