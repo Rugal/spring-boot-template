@@ -32,14 +32,14 @@ public class StudentController implements StudentApi {
   private StudentService studentService;
 
   @Override
-  public ResponseEntity<StudentDto> createStudent(NewStudentDto input) {
+  public ResponseEntity<StudentDto> createStudent(final NewStudentDto input) {
     LOG.info("Create student");
     final Student save = this.studentService.getDao().save(StudentMapper.INSTANCE.to(input));
     return new ResponseEntity<>(StudentMapper.INSTANCE.from(save), HttpStatus.CREATED);
   }
 
   @Override
-  public ResponseEntity<Void> deleteStudent(Integer sid) {
+  public ResponseEntity<Void> deleteStudent(final Integer sid) {
     LOG.info("Delete student [{}]", sid);
     final Optional<Student> findById = this.studentService.getDao().findById(sid);
     if (findById.isEmpty()) {
@@ -50,7 +50,7 @@ public class StudentController implements StudentApi {
   }
 
   @Override
-  public ResponseEntity<StudentDto> getStudent(Integer sid) {
+  public ResponseEntity<StudentDto> getStudent(final Integer sid) {
     LOG.info("Get student [{}]", sid);
     return this.studentService.getDao().existsById(sid)
            ? new ResponseEntity<>(StudentMapper.INSTANCE.from(this.studentService.getDao()
