@@ -11,8 +11,10 @@ import javax.validation.constraints.NotNull;
 
 import config.SystemDefaultProperty;
 
+import lombok.Builder;
 import lombok.Data;
 
+@Builder
 @Data
 @Entity
 @Table(name = "registration", schema = SystemDefaultProperty.SCHEMA)

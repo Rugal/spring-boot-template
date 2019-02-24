@@ -5,6 +5,8 @@ import ga.rugal.demo.swagger.model.NewRegistrationDto;
 import ga.rugal.demo.swagger.model.RegistrationDto;
 
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.Mappings;
 import org.mapstruct.factory.Mappers;
 
 /**
@@ -17,9 +19,13 @@ public interface RegistrationMapper {
 
   RegistrationMapper INSTANCE = Mappers.getMapper(RegistrationMapper.class);
 
-  Registration to(NewRegistrationDto course);
+  @Mappings({
+    @Mapping(source = "registration.course.cid", target = "cid"),
+    @Mapping(source = "registration.student.sid", target = "sid")})
+  RegistrationDto from(Registration registration);
 
-  Registration to(RegistrationDto course);
-
-  RegistrationDto from(Registration course);
+  @Mappings({
+    @Mapping(source = "registration.course.cid", target = "cid"),
+    @Mapping(source = "registration.student.sid", target = "sid")})
+  NewRegistrationDto from2(Registration registration);
 }
