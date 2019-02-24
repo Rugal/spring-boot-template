@@ -17,9 +17,11 @@ public interface StudentMapper {
 
   StudentMapper INSTANCE = Mappers.getMapper(StudentMapper.class);
 
-  Student to(NewStudentDto course);
+  Student to(NewStudentDto student);
 
-  Student to(StudentDto course);
+  Student to(StudentDto student);
 
-  StudentDto from(Student course);
+  StudentDto from(Student student);
+
+  NewStudentDto from2(Student student);
 }
