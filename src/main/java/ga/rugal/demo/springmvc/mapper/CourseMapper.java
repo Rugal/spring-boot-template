@@ -22,4 +22,6 @@ public interface CourseMapper {
   Course to(CourseDto course);
 
   CourseDto from(Course course);
+
+  NewCourseDto from2(Course course);
 }

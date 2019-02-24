@@ -33,26 +33,10 @@ public class CourseController implements CourseApi {
   private CourseService courseService;
 
   @Override
-  public ResponseEntity<CourseDto> updateCourse(final Integer cid, final CourseDto input) {
-
-    if (!this.courseService.getDao().existsById(cid)) {
-      return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    }
-    final Course course = CourseMapper.INSTANCE.to(input);
-    course.setCid(cid);
-    LOG.info("Update course [{}]", cid);
-    final Course output = this.courseService.getDao().save(course);
-    return new ResponseEntity<>(CourseMapper.INSTANCE.from(output), HttpStatus.OK);
-  }
-
-  @Override
-  public ResponseEntity<CourseDto> getCourse(final Integer cid) {
-    LOG.info("Get course [{}]", cid);
-    return this.courseService.getDao().existsById(cid)
-           ? new ResponseEntity<>(CourseMapper.INSTANCE.from(this.courseService.getDao()
-        .findById(cid).get()),
-                                  HttpStatus.OK)
-           : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+  public ResponseEntity<CourseDto> createCourse(final @RequestBody NewCourseDto course) {
+    LOG.info("Create course");
+    final Course save = this.courseService.getDao().save(CourseMapper.INSTANCE.to(course));
+    return new ResponseEntity<>(CourseMapper.INSTANCE.from(save), HttpStatus.CREATED);
   }
 
   @Override
@@ -67,9 +51,26 @@ public class CourseController implements CourseApi {
   }
 
   @Override
-  public ResponseEntity<CourseDto> createCourse(final @RequestBody NewCourseDto course) {
-    LOG.info("Create course");
-    final Course save = this.courseService.getDao().save(CourseMapper.INSTANCE.to(course));
-    return new ResponseEntity<>(CourseMapper.INSTANCE.from(save), HttpStatus.CREATED);
+  public ResponseEntity<CourseDto> getCourse(final Integer cid) {
+    LOG.info("Get course [{}]", cid);
+    return this.courseService.getDao().existsById(cid)
+           ? new ResponseEntity<>(CourseMapper.INSTANCE.from(this.courseService.getDao()
+                                    .findById(cid).get()),
+                                  HttpStatus.OK)
+           : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+  }
+
+  @Override
+  public ResponseEntity<CourseDto> updateCourse(final Integer cid, final CourseDto input) {
+
+    if (!this.courseService.getDao().existsById(cid)) {
+      return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+    final Course course = CourseMapper.INSTANCE.to(input);
+    course.setCid(cid);
+    LOG.info("Update course [{}]", cid);
+    return new ResponseEntity<>(CourseMapper.INSTANCE.from(this.courseService.getDao()
+                                  .save(course)),
+                                HttpStatus.OK);
   }
 }

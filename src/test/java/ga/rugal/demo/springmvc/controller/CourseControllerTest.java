@@ -10,6 +10,7 @@ import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -18,8 +19,7 @@ import java.util.Optional;
 import ga.rugal.demo.core.dao.CourseDao;
 import ga.rugal.demo.core.entity.Course;
 import ga.rugal.demo.core.service.CourseService;
-import ga.rugal.demo.swagger.model.CourseDto;
-import ga.rugal.demo.swagger.model.NewCourseDto;
+import ga.rugal.demo.springmvc.mapper.CourseMapper;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.SneakyThrows;
@@ -55,12 +55,6 @@ public class CourseControllerTest extends ControllerUnitTestBase {
   @Autowired
   private Course course;
 
-  @Autowired
-  private NewCourseDto newCourseDto;
-
-  @Autowired
-  private CourseDto courseDto;
-
   @Before
   public void setUp() {
     this.controller.setCourseService(this.courseService);
@@ -69,6 +63,40 @@ public class CourseControllerTest extends ControllerUnitTestBase {
     given(this.courseDao.existsById(anyInt())).willReturn(true);
     given(this.courseDao.findById(anyInt())).willReturn(Optional.of(this.course));
     given(this.courseDao.save(any())).willReturn(this.course);
+  }
+
+  @SneakyThrows
+  @Test
+  public void createCourse_201() {
+    this.mockMvc.perform(post("/course")
+      .contentType(MediaType.APPLICATION_JSON_UTF8)
+      .content(this.objectMapper.writeValueAsString(CourseMapper.INSTANCE.from2(this.course)))
+      .accept(MediaType.APPLICATION_JSON_UTF8))
+      .andExpect(status().isCreated())
+      .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8));
+    verify(this.courseDao, only()).save(any());
+  }
+
+  @SneakyThrows
+  @Test
+  public void deleteCourse_204() {
+    this.mockMvc.perform(delete("/course/1")
+      .accept(MediaType.APPLICATION_JSON_UTF8))
+      .andExpect(status().isNoContent());
+    verify(this.courseDao, times(1)).findById(anyInt());
+    verify(this.courseDao, times(1)).delete(any());
+  }
+
+  @SneakyThrows
+  @Test
+  public void deleteCourse_404() {
+    given(this.courseDao.findById(anyInt())).willReturn(Optional.empty());
+
+    this.mockMvc.perform(delete("/course/1")
+      .accept(MediaType.APPLICATION_JSON_UTF8))
+      .andExpect(status().isNotFound());
+    verify(this.courseDao, only()).findById(anyInt());
+    verify(this.courseDao, never()).delete(any());
   }
 
   @SneakyThrows
@@ -96,35 +124,27 @@ public class CourseControllerTest extends ControllerUnitTestBase {
 
   @SneakyThrows
   @Test
-  public void deleteCourse_204() {
-    this.mockMvc.perform(delete("/course/1")
+  public void updateCourse_200() {
+    this.mockMvc.perform(put("/course/1")
+      .contentType(MediaType.APPLICATION_JSON_UTF8)
+      .content(this.objectMapper.writeValueAsString(CourseMapper.INSTANCE.from(this.course)))
       .accept(MediaType.APPLICATION_JSON_UTF8))
-      .andExpect(status().isNoContent());
-    verify(this.courseDao, times(1)).findById(anyInt());
-    verify(this.courseDao, times(1)).delete(any());
+      .andExpect(status().isOk());
+    verify(this.courseDao, times(1)).existsById(anyInt());
+    verify(this.courseDao, times(1)).save(any());
   }
 
   @SneakyThrows
   @Test
-  public void deleteCourse_404() {
-    given(this.courseDao.findById(anyInt())).willReturn(Optional.empty());
+  public void updateCourse_404() {
+    given(this.courseDao.existsById(anyInt())).willReturn(false);
 
-    this.mockMvc.perform(delete("/course/1")
+    this.mockMvc.perform(put("/course/1")
+      .contentType(MediaType.APPLICATION_JSON_UTF8)
+      .content(this.objectMapper.writeValueAsString(CourseMapper.INSTANCE.from(this.course)))
       .accept(MediaType.APPLICATION_JSON_UTF8))
       .andExpect(status().isNotFound());
-    verify(this.courseDao, only()).findById(anyInt());
-    verify(this.courseDao, never()).delete(any());
-  }
-
-  @SneakyThrows
-  @Test
-  public void createCourse_201() {
-    this.mockMvc.perform(post("/course")
-      .contentType(MediaType.APPLICATION_JSON_UTF8)
-      .content(this.objectMapper.writeValueAsString(this.newCourseDto))
-      .accept(MediaType.APPLICATION_JSON_UTF8))
-      .andExpect(status().isCreated())
-      .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8));
-    verify(this.courseDao, only()).save(any());
+    verify(this.courseDao, only()).existsById(anyInt());
+    verify(this.courseDao, never()).save(any());
   }
 }

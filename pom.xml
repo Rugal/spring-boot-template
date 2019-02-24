@@ -128,19 +128,6 @@
         <groupId>io.swagger</groupId>
         <artifactId>swagger-codegen-maven-plugin</artifactId>
       </plugin>
-      <!-- flyway plugin -->
-      <plugin>
-        <groupId>org.flywaydb</groupId>
-        <artifactId>flyway-maven-plugin</artifactId>
-        <configuration>
-          <schemas>
-            <schema>test</schema>
-          </schemas>
-          <installedBy>Rugal Bernstein</installedBy>
-          <configFiles>configuration/db/local.properties</configFiles>
-          <locations>filesystem:configuration/db/migration</locations>
-        </configuration>
-      </plugin>
     </plugins>
   </build>
 </project>
