@@ -11,6 +11,6 @@ import org.springframework.context.annotation.ComponentScan;
  */
 @ComponentScan(basePackageClasses = ga.rugal.demo.springmvc.controller.PackageInfo.class)
 @Ignore
-public class UnitTestControllerBase extends UnitTestBase {
+public class ControllerUnitTestBase extends UnitTestBase {
 
 }

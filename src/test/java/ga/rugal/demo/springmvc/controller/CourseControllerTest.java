@@ -35,7 +35,7 @@ import org.springframework.test.web.servlet.MockMvc;
  * @author Rugal Bernstein
  */
 @WebMvcTest(CourseController.class)
-public class CourseControllerTest extends UnitTestControllerBase {
+public class CourseControllerTest extends ControllerUnitTestBase {
 
   @Autowired
   private MockMvc mockMvc;

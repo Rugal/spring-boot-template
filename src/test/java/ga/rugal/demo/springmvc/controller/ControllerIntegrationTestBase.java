@@ -20,7 +20,7 @@ import org.springframework.web.context.WebApplicationContext;
 @Ignore
 @SpringBootTest
 @WebAppConfiguration
-public abstract class ControllerClientSideTestBase extends IntegrationTestBase {
+public abstract class ControllerIntegrationTestBase extends IntegrationTestBase {
 
   @Autowired
   public WebApplicationContext wac;

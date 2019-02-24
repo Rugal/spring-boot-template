@@ -12,7 +12,7 @@ import org.springframework.http.MediaType;
  *
  * @author Rugal Bernstein
  */
-public class CourseControllerIntegrationTest extends ControllerClientSideTestBase {
+public class CourseControllerIntegrationTest extends ControllerIntegrationTestBase {
 
   @SneakyThrows
   @Test
