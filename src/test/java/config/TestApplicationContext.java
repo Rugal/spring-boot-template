@@ -35,7 +35,7 @@ public class TestApplicationContext {
   public Course course(final Faker faker) {
     final Course course = new Course();
     course.setCid(faker.number().numberBetween(1, 100));
-    course.setName(faker.name().fullName());
+    course.setName(faker.name().firstName());
     return course;
   }
 
