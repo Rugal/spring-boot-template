@@ -1,28 +1,34 @@
 package ga.rugal.demo.core.entity;
 
+import static config.SystemDefaultProperty.SCHEMA;
+
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-
-import config.SystemDefaultProperty;
 
 import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "student", schema = SystemDefaultProperty.SCHEMA)
+@Table(name = "student", schema = SCHEMA)
 public class Student {
 
-  @Id
+  private static final String SEQUENCE_NAME = "student_sid_seq";
+
   @Basic(optional = false)
-  @NotNull
-  @Column(nullable = false)
+  @Column(name = "sid")
+  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = SEQUENCE_NAME)
+  @Id
+  @SequenceGenerator(name = SEQUENCE_NAME, allocationSize = 1,
+                     sequenceName = SCHEMA + "." + SEQUENCE_NAME)
   private Integer sid;
 
   @Size(max = 20)
