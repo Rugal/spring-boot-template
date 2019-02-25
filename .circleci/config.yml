@@ -3,7 +3,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/openjdk:8-jdk-node-browsers
+      - image: circleci/openjdk:11.0-jdk-node
         environment:
           SPRING_PROFILES_ACTIVE: ci
       - image: circleci/postgres:10-alpine-ram
@@ -16,6 +16,7 @@ jobs:
       - restore_cache:
           key: v1-template-{{ checksum "pom.xml" }}
       - run: mvn dependency:go-offline
+      - run: mvn -Dflyway.configFile=configuration/db/${SPRING_PROFILES_ACTIVE}.properties flyway:clean flyway:migrate
       - run: mvn clean -Dskip.surefire.tests=false -D=skip.failsafe.tests=false verify
       - run:
           name: Save test results
