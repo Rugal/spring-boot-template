@@ -6,6 +6,7 @@ jobs:
       - image: circleci/openjdk:11.0-jdk-node
         environment:
           SPRING_PROFILES_ACTIVE: ci
+          CODECOV_TOKEN: cff2d55a-d535-49a6-ba59-67891af4608f
       - image: circleci/postgres:10-alpine-ram
         environment:
           POSTGRES_USER: root
@@ -27,11 +28,12 @@ jobs:
           when: always
       - store_test_results:
           path: ~/junit
+      - store_artifacts:
+          path: target/site
+      - run: curl -s https://codecov.io/bash | bash
       - run: mvn clean package
       - store_artifacts:
           path: target/deliverable.jar
-      - store_artifacts:
-          path: target/site
       - save_cache:
           key: v1-template-{{ checksum "pom.xml" }}
           paths:

@@ -4,7 +4,6 @@ import ga.rugal.IntegrationTestBase;
 import ga.rugal.demo.core.service.StudentService;
 
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -16,10 +15,6 @@ public class StudentServiceImplIntegrationTest extends IntegrationTestBase {
 
   @Autowired
   private StudentService studentService;
-
-  @Before
-  public void before() {
-  }
 
   @Test
   public void test() {
