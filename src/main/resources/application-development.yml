@@ -4,10 +4,6 @@
 #Database
 jdbc:
   driverClassName: org.postgresql.Driver
-  url: jdbc:postgresql://localhost:5432/postgres
-  username: root
-  password:
-
-spring:
-  flyway:
-    target: 100
+  url: jdbc:postgresql://ec2-174-129-224-157.compute-1.amazonaws.com:5432/d9amrt7ek1lauq
+  username: ybppnflhuevwvt
+  password: 296a40defc2734ae577ce81dc779ce75f9222aad2e4aab87f117f1b40adde943
