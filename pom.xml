@@ -104,13 +104,12 @@
       <groupId>org.flywaydb</groupId>
       <artifactId>flyway-core</artifactId>
     </dependency>
-
     <!-- Auto Append -->
   </dependencies>
 
   <build>
     <plugins>
-      <!-- spring boot -->
+      <!-- spring boot plugin -->
       <plugin>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
