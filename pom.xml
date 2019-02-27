@@ -114,6 +114,11 @@
 
   <build>
     <plugins>
+      <!-- git commit id -->
+      <plugin>
+        <groupId>pl.project13.maven</groupId>
+        <artifactId>git-commit-id-plugin</artifactId>
+      </plugin>
       <!-- spring boot plugin -->
       <plugin>
         <groupId>org.springframework.boot</groupId>
