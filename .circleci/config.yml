@@ -64,6 +64,9 @@ workflows:
       - deploy-development:
           requires:
             - build
+          filters:
+            tags:
+              ignore: /^v.*/
       - deploy-staging:
           requires:
             - build
