@@ -1,4 +1,9 @@
-swagger: '2.0'
+openapi: 3.0.0
+# Added by API Auto Mocking Plugin
+servers:
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/RugalBernstein/template/1.0.0
+
 info:
   description: This is a simple API
   version: 1.0.0
@@ -6,19 +11,9 @@ info:
   # put the contact info for your development or API team
   contact:
     email: rugal.bernstein.0@gmail.com
-
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
-
-#  ----------------------------------------------------------
-
-# Added by API Auto Mocking Plugin
-host: virtserver.swaggerhub.com
-basePath: /RugalBernstein/subject-system/1.0.0
-schemes:
- - https
-
 #  ----------------------------------------------------------
 
 # tags are used for organizing operations
@@ -32,82 +27,85 @@ tags:
 
 #  ----------------------------------------------------------
 
-definitions:
-  NewStudent:
-    type: object
-    properties:
-      name:
-        type: string
-        example: Rugal Bernstein
-  Student:
-    type: object
-    allOf:
-      - $ref: '#/definitions/NewStudent'
-      - properties:
-          sid:
-            description: Id of student
-            type: integer
-            example: 1
-    required:
-      - sid
-  NewCourse:
-    type: object
-    properties:
-      name:
-        type: string
-  Course:
-    type: object
-    allOf:
-      - $ref: '#/definitions/NewCourse'
-      - properties:
-          cid:
-            description: Id of course
-            type: integer
-            example: 1
-    required:
-      - cid
-  NewRegistration:
-    type: object
-    properties:
-      cid:
-        type: integer
-      sid:
-        type: integer
-      grade:
-        type: integer
-    required:
-      - cid
-      - sid
-  Registration:
-    type: object
-    allOf:
-      - $ref: '#/definitions/NewRegistration'
-      - properties:
-          rid:
-            description: Id of registration
-            type: integer
-            example: 1
-    required:
-      - rid
+components:
+  schemas:
+    NewStudent:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Rugal Bernstein
+    Student:
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/NewStudent'
+        - properties:
+            sid:
+              description: Id of student
+              type: integer
+              example: 1
+      required:
+        - sid
+    NewCourse:
+      type: object
+      properties:
+        name:
+          type: string
+    Course:
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/NewCourse'
+        - properties:
+            cid:
+              description: Id of course
+              type: integer
+              example: 1
+      required:
+        - cid
+    NewRegistration:
+      type: object
+      properties:
+        cid:
+          type: integer
+        sid:
+          type: integer
+        grade:
+          type: integer
+      required:
+        - cid
+        - sid
+    Registration:
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/NewRegistration'
+        - properties:
+            rid:
+              description: Id of registration
+              type: integer
+              example: 1
+      required:
+        - rid
+  
+    Response204:
+      description:  Resource deleted
+    Response400:
+      description:  Bad request
+    Response401:
+      description:  Request not authenticated
+    Response403:
+      description:  Request not authorized
+    Response404:
+      description:  Resource not found
+    Response405:
+      description:  Request method not found
+    Response406:
+      description:  Response representation not negotiable
+    Response409:
+      description:  Resource conflicted
 
-  Response204:
-    description:  Resource deleted
-  Response400:
-    description:  Bad request
-  Response401:
-    description:  Request not authenticated
-  Response403:
-    description:  Request not authorized
-  Response404:
-    description:  Resource not found
-  Response405:
-    description:  Request method not found
-  Response406:
-    description:  Response representation not negotiable
-  Response409:
-    description:  Resource conflicted
 
 #  ----------------------------------------------------------
+
 
 paths:
   /student/{sid}:
@@ -116,29 +114,30 @@ paths:
         name: sid
         description: Student Id
         required: true
-        type: integer
+        schema:
+          type: integer
     get:
       tags:
         - student
       summary: Get student
       operationId: getStudent
-      produces:
-        - application/json;charset=UTF-8
       responses:
         200:
           description: Student got
-          schema:
-            $ref: '#/definitions/Student'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Student'
         401:
-          $ref: '#/definitions/Response401'
+          $ref: '#/components/schemas/Response401'
         403:
-          $ref: '#/definitions/Response403'
+          $ref: '#/components/schemas/Response403'
         404:
-          $ref: '#/definitions/Response404'
+          $ref: '#/components/schemas/Response404'
         405:
-          $ref: '#/definitions/Response405'
+          $ref: '#/components/schemas/Response405'
         406:
-          $ref: '#/definitions/Response406'
+          $ref: '#/components/schemas/Response406'
     put:
       tags:
         - student
@@ -146,32 +145,33 @@ paths:
       operationId: updateStudent
       description: |
         Update student by posting JSON.
-      consumes:
-        - application/json;charset=UTF-8
-      produces:
-        - application/json;charset=UTF-8
-      parameters:
-        - in: body
-          name: Student
-          schema:
-            $ref: '#/definitions/Student'
+      requestBody:
+        description: Student to be updated
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Student'
+
       responses:
         200:
-          description: Student got
-          schema:
-            $ref: '#/definitions/Student'
+          description: Student updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Student'
         400:
-          $ref: '#/definitions/Response400'
+          $ref: '#/components/schemas/Response400'
         401:
-          $ref: '#/definitions/Response401'
+          $ref: '#/components/schemas/Response401'
         403:
-          $ref: '#/definitions/Response403'
+          $ref: '#/components/schemas/Response403'
         404:
-          $ref: '#/definitions/Response404'
+          $ref: '#/components/schemas/Response404'
         405:
-          $ref: '#/definitions/Response405'
+          $ref: '#/components/schemas/Response405'
         406:
-          $ref: '#/definitions/Response406'
+          $ref: '#/components/schemas/Response406'
     delete:
       tags:
         - student
@@ -179,17 +179,17 @@ paths:
       operationId: deleteStudent
       responses:
         204:
-          $ref: '#/definitions/Response204'
+          $ref: '#/components/schemas/Response204'
         401:
-          $ref: '#/definitions/Response401'
+          $ref: '#/components/schemas/Response401'
         403:
-          $ref: '#/definitions/Response403'
+          $ref: '#/components/schemas/Response403'
         404:
-          $ref: '#/definitions/Response404'
+          $ref: '#/components/schemas/Response404'
         405:
-          $ref: '#/definitions/Response405'
+          $ref: '#/components/schemas/Response405'
         406:
-          $ref: '#/definitions/Response406'
+          $ref: '#/components/schemas/Response406'
   /student:
     post:
       tags:
@@ -198,32 +198,32 @@ paths:
       operationId: createStudent
       description: |
         Create student by posting JSON.
-      consumes:
-        - application/json;charset=UTF-8
-      produces:
-        - application/json;charset=UTF-8
-      parameters:
-        - in: body
-          name: Student
-          schema:
-            $ref: '#/definitions/NewStudent'
+      requestBody:
+        description: Student to be created
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewStudent'
       responses:
         201:
           description: Student created
-          schema:
-            $ref: '#/definitions/Student'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Student'
         400:
-          $ref: '#/definitions/Response400'
+          $ref: '#/components/schemas/Response400'
         401:
-          $ref: '#/definitions/Response401'
+          $ref: '#/components/schemas/Response401'
         403:
-          $ref: '#/definitions/Response403'
+          $ref: '#/components/schemas/Response403'
         405:
-          $ref: '#/definitions/Response405'
+          $ref: '#/components/schemas/Response405'
         406:
-          $ref: '#/definitions/Response406'
+          $ref: '#/components/schemas/Response406'
         409:
-          $ref: '#/definitions/Response409'
+          $ref: '#/components/schemas/Response409'
 #  --------------------------------
   /course/{cid}:
     parameters:
@@ -231,29 +231,30 @@ paths:
         name: cid
         description: Course Id
         required: true
-        type: integer
+        schema:
+          type: integer
     get:
       tags:
         - course
       summary: Get course
       operationId: getCourse
-      produces:
-        - application/json;charset=UTF-8
       responses:
         200:
           description: Course got
-          schema:
-            $ref: '#/definitions/Course'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Course'
         401:
-          $ref: '#/definitions/Response401'
+          $ref: '#/components/schemas/Response401'
         403:
-          $ref: '#/definitions/Response403'
+          $ref: '#/components/schemas/Response403'
         404:
-          $ref: '#/definitions/Response404'
+          $ref: '#/components/schemas/Response404'
         405:
-          $ref: '#/definitions/Response405'
+          $ref: '#/components/schemas/Response405'
         406:
-          $ref: '#/definitions/Response406'
+          $ref: '#/components/schemas/Response406'
     put:
       tags:
         - course
@@ -261,32 +262,32 @@ paths:
       operationId: updateCourse
       description: |
         Update course by posting JSON.
-      consumes:
-        - application/json;charset=UTF-8
-      produces:
-        - application/json;charset=UTF-8
-      parameters:
-        - in: body
-          name: Course
-          schema:
-            $ref: '#/definitions/Course'
+      requestBody:
+        description: Course to be updated
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Course'
       responses:
         200:
-          description: Course got
-          schema:
-            $ref: '#/definitions/Course'
+          description: Course updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Course'
         400:
-          $ref: '#/definitions/Response400'
+          $ref: '#/components/schemas/Response400'
         401:
-          $ref: '#/definitions/Response401'
+          $ref: '#/components/schemas/Response401'
         403:
-          $ref: '#/definitions/Response403'
+          $ref: '#/components/schemas/Response403'
         404:
-          $ref: '#/definitions/Response404'
+          $ref: '#/components/schemas/Response404'
         405:
-          $ref: '#/definitions/Response405'
+          $ref: '#/components/schemas/Response405'
         406:
-          $ref: '#/definitions/Response406'
+          $ref: '#/components/schemas/Response406'
     delete:
       tags:
         - course
@@ -294,17 +295,17 @@ paths:
       operationId: deleteCourse
       responses:
         204:
-          $ref: '#/definitions/Response204'
+          $ref: '#/components/schemas/Response204'
         401:
-          $ref: '#/definitions/Response401'
+          $ref: '#/components/schemas/Response401'
         403:
-          $ref: '#/definitions/Response403'
+          $ref: '#/components/schemas/Response403'
         404:
-          $ref: '#/definitions/Response404'
+          $ref: '#/components/schemas/Response404'
         405:
-          $ref: '#/definitions/Response405'
+          $ref: '#/components/schemas/Response405'
         406:
-          $ref: '#/definitions/Response406'
+          $ref: '#/components/schemas/Response406'
   /course:
     post:
       tags:
@@ -313,32 +314,32 @@ paths:
       operationId: createCourse
       description: |
         Create course by posting JSON.
-      consumes:
-        - application/json;charset=UTF-8
-      produces:
-        - application/json;charset=UTF-8
-      parameters:
-        - in: body
-          name: Course
-          schema:
-            $ref: '#/definitions/NewCourse'
+      requestBody:
+        description: Course to be created
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewCourse'
       responses:
         201:
           description: Course created
-          schema:
-            $ref: '#/definitions/Course'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Course'
         400:
-          $ref: '#/definitions/Response400'
+          $ref: '#/components/schemas/Response400'
         401:
-          $ref: '#/definitions/Response401'
+          $ref: '#/components/schemas/Response401'
         403:
-          $ref: '#/definitions/Response403'
+          $ref: '#/components/schemas/Response403'
         405:
-          $ref: '#/definitions/Response405'
+          $ref: '#/components/schemas/Response405'
         406:
-          $ref: '#/definitions/Response406'
+          $ref: '#/components/schemas/Response406'
         409:
-          $ref: '#/definitions/Response409'
+          $ref: '#/components/schemas/Response409'
 #  --------------------------------
   /registration/{rid}:
     parameters:
@@ -346,29 +347,30 @@ paths:
         name: rid
         description: Registration Id
         required: true
-        type: integer
+        schema:
+          type: integer
     get:
       tags:
         - registration
       summary: Get registration
       operationId: getRegistration
-      produces:
-        - application/json;charset=UTF-8
       responses:
         200:
           description: Registration got
-          schema:
-            $ref: '#/definitions/Registration'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Registration'
         401:
-          $ref: '#/definitions/Response401'
+          $ref: '#/components/schemas/Response401'
         403:
-          $ref: '#/definitions/Response403'
+          $ref: '#/components/schemas/Response403'
         404:
-          $ref: '#/definitions/Response404'
+          $ref: '#/components/schemas/Response404'
         405:
-          $ref: '#/definitions/Response405'
+          $ref: '#/components/schemas/Response405'
         406:
-          $ref: '#/definitions/Response406'
+          $ref: '#/components/schemas/Response406'
     put:
       tags:
         - registration
@@ -376,32 +378,32 @@ paths:
       operationId: updateRegistration
       description: |
         Update registration by posting JSON.
-      consumes:
-        - application/json;charset=UTF-8
-      produces:
-        - application/json;charset=UTF-8
-      parameters:
-        - in: body
-          name: Registration
-          schema:
-            $ref: '#/definitions/Registration'
+      requestBody:
+        description: Registration to be updated
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Registration'
       responses:
         200:
-          description: Registration got
-          schema:
-            $ref: '#/definitions/Registration'
+          description: Registration updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Registration'
         400:
-          $ref: '#/definitions/Response400'
+          $ref: '#/components/schemas/Response400'
         401:
-          $ref: '#/definitions/Response401'
+          $ref: '#/components/schemas/Response401'
         403:
-          $ref: '#/definitions/Response403'
+          $ref: '#/components/schemas/Response403'
         404:
-          $ref: '#/definitions/Response404'
+          $ref: '#/components/schemas/Response404'
         405:
-          $ref: '#/definitions/Response405'
+          $ref: '#/components/schemas/Response405'
         406:
-          $ref: '#/definitions/Response406'
+          $ref: '#/components/schemas/Response406'
     delete:
       tags:
         - registration
@@ -409,17 +411,17 @@ paths:
       operationId: deleteRegistration
       responses:
         204:
-          $ref: '#/definitions/Response204'
+          $ref: '#/components/schemas/Response204'
         401:
-          $ref: '#/definitions/Response401'
+          $ref: '#/components/schemas/Response401'
         403:
-          $ref: '#/definitions/Response403'
+          $ref: '#/components/schemas/Response403'
         404:
-          $ref: '#/definitions/Response404'
+          $ref: '#/components/schemas/Response404'
         405:
-          $ref: '#/definitions/Response405'
+          $ref: '#/components/schemas/Response405'
         406:
-          $ref: '#/definitions/Response406'
+          $ref: '#/components/schemas/Response406'
   /registration:
     post:
       tags:
@@ -428,30 +430,30 @@ paths:
       operationId: createRegistration
       description: |
         Create registration by posting JSON.
-      consumes:
-        - application/json;charset=UTF-8
-      produces:
-        - application/json;charset=UTF-8
-      parameters:
-        - in: body
-          name: Registration
-          schema:
-            $ref: '#/definitions/NewRegistration'
+      requestBody:
+        description: Registration to be updated
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewRegistration'
       responses:
         201:
           description: Registration created
-          schema:
-            $ref: '#/definitions/Registration'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Registration'
         400:
-          $ref: '#/definitions/Response400'
+          $ref: '#/components/schemas/Response400'
         401:
-          $ref: '#/definitions/Response401'
+          $ref: '#/components/schemas/Response401'
         403:
-          $ref: '#/definitions/Response403'
+          $ref: '#/components/schemas/Response403'
         405:
-          $ref: '#/definitions/Response405'
+          $ref: '#/components/schemas/Response405'
         406:
-          $ref: '#/definitions/Response406'
+          $ref: '#/components/schemas/Response406'
         409:
-          $ref: '#/definitions/Response409'
+          $ref: '#/components/schemas/Response409'
 #  ----------------------------------------------------------

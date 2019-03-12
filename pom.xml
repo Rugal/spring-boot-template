@@ -187,9 +187,35 @@
       </plugin>
       <!-- Swagger codegen -->
       <plugin>
-        <groupId>io.swagger</groupId>
-        <artifactId>swagger-codegen-maven-plugin</artifactId>
+        <groupId>org.openapitools</groupId>
+        <artifactId>openapi-generator-maven-plugin</artifactId>
+        <version>3.3.4</version>
+        <configuration>
+          <inputSpec>configuration/swagger/openapi.yml</inputSpec>
+          <skipOverwrite>true</skipOverwrite>
+          <language>spring</language>
+          <modelPackage>${swagger.codegen.model.package}</modelPackage>
+          <apiPackage>${swagger.codegen.api.package}</apiPackage>
+          <invokerPackage>${swagger.codegen.invoker.package}</invokerPackage>
+          <generateSupportingFiles>false</generateSupportingFiles>
+          <generateApis>true</generateApis>
+          <modelNameSuffix>Dto</modelNameSuffix>
+          <configOptions>
+            <dateLibrary>java8</dateLibrary>
+            <java8>false</java8>
+            <interfaceOnly>true</interfaceOnly>
+          </configOptions>
+        </configuration>
+        <executions>
+          <execution>
+            <id>swagger-codegen-workflow</id>
+            <goals>
+              <goal>generate</goal>
+            </goals>
+          </execution>
+        </executions>
       </plugin>
+      
       <!-- gpg -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
