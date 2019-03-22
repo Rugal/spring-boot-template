@@ -47,6 +47,7 @@ public class CourseControllerIntegrationTest extends ControllerIntegrationTestBa
   @SneakyThrows
   @Test
   public void deleteCourse_204() {
+    this.course.setCid(null);
     final Course save = this.courseService.getDao().save(this.course);
     Assert.assertTrue(this.courseService.getDao().existsById(save.getCid()));
 

@@ -47,6 +47,7 @@ public class StudentControllerIntegrationTest extends ControllerIntegrationTestB
   @SneakyThrows
   @Test
   public void deleteStudent_204() {
+    this.student.setSid(null);
     final Student save = this.studentService.getDao().save(this.student);
     Assert.assertTrue(this.studentService.getDao().existsById(save.getSid()));
 
@@ -83,6 +84,7 @@ public class StudentControllerIntegrationTest extends ControllerIntegrationTestB
   @SneakyThrows
   @Test
   public void updateStudent_200() {
+    this.student.setSid(null);
     final Student save = this.studentService.getDao().save(this.student);
     Assert.assertTrue(this.studentService.getDao().existsById(save.getSid()));
 
