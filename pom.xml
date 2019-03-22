@@ -9,7 +9,7 @@
   </parent>
 
   <artifactId>demo</artifactId>
-  <version>1.0.1-SNAPSHOT</version>
+  <version>1.0.1</version>
   <name>Spring Boot Template</name>
   <description>Template project for Spring Boot</description>
   <url>https://rug.al</url>
@@ -18,7 +18,7 @@
     <connection>scm:git:git@github.com:Rugal/spring-boot-template.git</connection>
     <developerConnection>scm:git:git@github.com:Rugal/spring-boot-template.git</developerConnection>
     <url>https://github.com/Rugal/spring-boot-template</url>
-    <tag>HEAD</tag>
+    <tag>v1.0.1</tag>
   </scm>
 
   <properties>
