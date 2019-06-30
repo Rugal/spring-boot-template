@@ -4,10 +4,10 @@ import java.util.Optional;
 
 import ga.rugal.demo.core.entity.Course;
 import ga.rugal.demo.core.service.CourseService;
+import ga.rugal.demo.openapi.api.CourseApi;
+import ga.rugal.demo.openapi.model.CourseDto;
+import ga.rugal.demo.openapi.model.NewCourseDto;
 import ga.rugal.demo.springmvc.mapper.CourseMapper;
-import ga.rugal.demo.swagger.api.CourseApi;
-import ga.rugal.demo.swagger.model.CourseDto;
-import ga.rugal.demo.swagger.model.NewCourseDto;
 
 import io.swagger.annotations.Api;
 import lombok.Setter;

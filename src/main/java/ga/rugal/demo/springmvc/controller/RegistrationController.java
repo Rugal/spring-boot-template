@@ -8,10 +8,10 @@ import ga.rugal.demo.core.entity.Student;
 import ga.rugal.demo.core.service.CourseService;
 import ga.rugal.demo.core.service.RegistrationService;
 import ga.rugal.demo.core.service.StudentService;
+import ga.rugal.demo.openapi.api.RegistrationApi;
+import ga.rugal.demo.openapi.model.NewRegistrationDto;
+import ga.rugal.demo.openapi.model.RegistrationDto;
 import ga.rugal.demo.springmvc.mapper.RegistrationMapper;
-import ga.rugal.demo.swagger.api.RegistrationApi;
-import ga.rugal.demo.swagger.model.NewRegistrationDto;
-import ga.rugal.demo.swagger.model.RegistrationDto;
 
 import io.swagger.annotations.Api;
 import lombok.Setter;

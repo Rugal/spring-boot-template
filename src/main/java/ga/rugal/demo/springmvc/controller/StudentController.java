@@ -4,10 +4,10 @@ import java.util.Optional;
 
 import ga.rugal.demo.core.entity.Student;
 import ga.rugal.demo.core.service.StudentService;
+import ga.rugal.demo.openapi.api.StudentApi;
+import ga.rugal.demo.openapi.model.NewStudentDto;
+import ga.rugal.demo.openapi.model.StudentDto;
 import ga.rugal.demo.springmvc.mapper.StudentMapper;
-import ga.rugal.demo.swagger.api.StudentApi;
-import ga.rugal.demo.swagger.model.NewStudentDto;
-import ga.rugal.demo.swagger.model.StudentDto;
 
 import io.swagger.annotations.Api;
 import lombok.Setter;
