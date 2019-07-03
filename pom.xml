@@ -184,17 +184,27 @@
       <plugin>
         <groupId>org.openapitools</groupId>
         <artifactId>openapi-generator-maven-plugin</artifactId>
+        <dependencies>
+          <dependency>
+            <groupId>ga.rugal</groupId>
+            <artifactId>feign-client-generator</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+          </dependency>
+        </dependencies>
         <executions>
           <execution>
             <id>openapi-codegen-server</id>
             <configuration>
               <skip>false</skip>
+              <skipIfSpecIsUnchanged>false</skipIfSpecIsUnchanged>
             </configuration>
           </execution>
           <execution>
             <id>openapi-codegen-client</id>
             <configuration>
-              <skip>true</skip>
+              <generatorName>spring-boot-feign</generatorName>
+              <skip>false</skip>
+              <skipIfSpecIsUnchanged>false</skipIfSpecIsUnchanged>
             </configuration>
           </execution>
         </executions>

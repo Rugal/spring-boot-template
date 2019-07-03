@@ -7,11 +7,3 @@ jdbc:
   url: jdbc:postgresql://localhost:5432/postgres
   username: postgres
   password: 900811
-
-feign:
-  client:
-    config:
-      test:
-        connectTimeout: 5000
-        readTimeout: 5000
-        loggerLevel: full
