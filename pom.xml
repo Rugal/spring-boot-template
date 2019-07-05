@@ -5,11 +5,11 @@
   <parent>
     <groupId>ga.rugal</groupId>
     <artifactId>parent</artifactId>
-    <version>1.2.1-SNAPSHOT</version>
+    <version>1.3.0</version>
   </parent>
 
   <artifactId>demo</artifactId>
-  <version>1.0.2-SNAPSHOT</version>
+  <version>1.1.0-SNAPSHOT</version>
   <name>Spring Boot Template</name>
   <description>Template project for Spring Boot</description>
   <url>https://rug.al</url>
@@ -20,11 +20,17 @@
     <url>https://github.com/Rugal/spring-boot-template</url>
     <tag>HEAD</tag>
   </scm>
+  
+  <ciManagement>
+    <system>circleci</system>
+    <url>https://circleci.com/gh/Rugal/spring-boot-template</url>
+  </ciManagement>
 
   <properties>
     <!-- test switch -->
     <skip.surefire.tests>true</skip.surefire.tests>
     <skip.failsafe.tests>true</skip.failsafe.tests>
+    <jacoco.skip.coverage.check>true</jacoco.skip.coverage.check>
   </properties>
 
   <dependencies>
@@ -52,7 +58,6 @@
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-devtools</artifactId>
-      <optional>true</optional>
     </dependency>
     <dependency>
       <groupId>org.springframework.cloud</groupId>
@@ -166,24 +171,14 @@
             </rule>
           </rules>
         </configuration>
-        <executions>
-          <execution>
-            <!-- fail build if rule not reach -->
-            <configuration>
-              <dataFile>${overall.agent.path}</dataFile>
-            </configuration>
-            <id>jacoco-check</id>
-            <phase>verify</phase>
-            <goals>
-              <goal>check</goal>
-            </goals>
-          </execution>
-        </executions>
       </plugin>
       <!-- openapi codegen -->
       <plugin>
         <groupId>org.openapitools</groupId>
         <artifactId>openapi-generator-maven-plugin</artifactId>
+        <configuration>
+          <skipIfSpecIsUnchanged>false</skipIfSpecIsUnchanged>
+        </configuration>
         <dependencies>
           <dependency>
             <groupId>ga.rugal</groupId>
@@ -194,17 +189,11 @@
         <executions>
           <execution>
             <id>openapi-codegen-server</id>
-            <configuration>
-              <skip>false</skip>
-              <skipIfSpecIsUnchanged>false</skipIfSpecIsUnchanged>
-            </configuration>
           </execution>
           <execution>
             <id>openapi-codegen-client</id>
             <configuration>
               <generatorName>spring-boot-feign</generatorName>
-              <skip>false</skip>
-              <skipIfSpecIsUnchanged>false</skipIfSpecIsUnchanged>
             </configuration>
           </execution>
         </executions>
