@@ -15,6 +15,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -32,14 +34,14 @@ public class CourseController implements CourseApi {
   private CourseService courseService;
 
   @Override
-  public ResponseEntity<CourseDto> createCourse(final NewCourseDto course) {
+  public ResponseEntity<CourseDto> createCourse(final @RequestBody NewCourseDto course) {
     LOG.info("Create course");
     final Course save = this.courseService.getDao().save(CourseMapper.INSTANCE.to(course));
     return new ResponseEntity<>(CourseMapper.INSTANCE.from(save), HttpStatus.CREATED);
   }
 
   @Override
-  public ResponseEntity<Void> deleteCourse(final Integer cid) {
+  public ResponseEntity<Void> deleteCourse(final @PathVariable("cid") Integer cid) {
     LOG.info("Delete course [{}]", cid);
     final Optional<Course> findById = this.courseService.getDao().findById(cid);
     if (findById.isEmpty()) {
@@ -50,7 +52,7 @@ public class CourseController implements CourseApi {
   }
 
   @Override
-  public ResponseEntity<CourseDto> getCourse(final Integer cid) {
+  public ResponseEntity<CourseDto> getCourse(final @PathVariable("cid") Integer cid) {
     LOG.info("Get course [{}]", cid);
     return this.courseService.getDao().existsById(cid)
            ? new ResponseEntity<>(CourseMapper.INSTANCE.from(this.courseService.getDao()
@@ -60,7 +62,8 @@ public class CourseController implements CourseApi {
   }
 
   @Override
-  public ResponseEntity<CourseDto> updateCourse(final Integer cid, final CourseDto input) {
+  public ResponseEntity<CourseDto> updateCourse(final @PathVariable("cid") Integer cid,
+                                                final @RequestBody CourseDto input) {
     if (!this.courseService.getDao().existsById(cid)) {
       return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }

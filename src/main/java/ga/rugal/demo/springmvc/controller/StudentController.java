@@ -15,6 +15,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -32,14 +34,14 @@ public class StudentController implements StudentApi {
   private StudentService studentService;
 
   @Override
-  public ResponseEntity<StudentDto> createStudent(final NewStudentDto input) {
+  public ResponseEntity<StudentDto> createStudent(final @RequestBody NewStudentDto input) {
     LOG.info("Create student");
     final Student save = this.studentService.getDao().save(StudentMapper.INSTANCE.to(input));
     return new ResponseEntity<>(StudentMapper.INSTANCE.from(save), HttpStatus.CREATED);
   }
 
   @Override
-  public ResponseEntity<Void> deleteStudent(final Integer sid) {
+  public ResponseEntity<Void> deleteStudent(final @PathVariable("sid") Integer sid) {
     LOG.info("Delete student [{}]", sid);
     final Optional<Student> findById = this.studentService.getDao().findById(sid);
     if (findById.isEmpty()) {
@@ -50,7 +52,7 @@ public class StudentController implements StudentApi {
   }
 
   @Override
-  public ResponseEntity<StudentDto> getStudent(final Integer sid) {
+  public ResponseEntity<StudentDto> getStudent(final @PathVariable("sid") Integer sid) {
     LOG.info("Get student [{}]", sid);
     return this.studentService.getDao().existsById(sid)
            ? new ResponseEntity<>(StudentMapper.INSTANCE.from(this.studentService.getDao()
@@ -60,7 +62,8 @@ public class StudentController implements StudentApi {
   }
 
   @Override
-  public ResponseEntity<StudentDto> updateStudent(final Integer sid, final StudentDto input) {
+  public ResponseEntity<StudentDto> updateStudent(final @PathVariable("sid") Integer sid,
+                                                  final @RequestBody StudentDto input) {
 
     if (!this.studentService.getDao().existsById(sid)) {
       return new ResponseEntity<>(HttpStatus.NOT_FOUND);

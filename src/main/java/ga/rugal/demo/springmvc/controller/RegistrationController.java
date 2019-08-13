@@ -19,6 +19,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -44,7 +46,8 @@ public class RegistrationController implements RegistrationApi {
   private StudentService studentService;
 
   @Override
-  public ResponseEntity<RegistrationDto> createRegistration(final NewRegistrationDto input) {
+  public ResponseEntity<RegistrationDto> createRegistration(final @RequestBody
+                                                            NewRegistrationDto input) {
     final Optional<Course> optionalCourse = this.courseService.getDao()
       .findById(input.getCid());
     if (optionalCourse.isEmpty()) {
@@ -71,7 +74,7 @@ public class RegistrationController implements RegistrationApi {
   }
 
   @Override
-  public ResponseEntity<Void> deleteRegistration(final Integer rid) {
+  public ResponseEntity<Void> deleteRegistration(final @PathVariable("rid") Integer rid) {
     LOG.info("Delete registration [{}]", rid);
     final Optional<Registration> findById = this.registrationService.getDao().findById(rid);
     if (findById.isEmpty()) {
@@ -82,7 +85,7 @@ public class RegistrationController implements RegistrationApi {
   }
 
   @Override
-  public ResponseEntity<RegistrationDto> getRegistration(final Integer rid) {
+  public ResponseEntity<RegistrationDto> getRegistration(final @PathVariable("rid") Integer rid) {
     LOG.info("Get registration [{}]", rid);
     return this.registrationService.getDao().existsById(rid)
            ? new ResponseEntity<>(RegistrationMapper.INSTANCE.from(this.registrationService.getDao()
@@ -92,8 +95,9 @@ public class RegistrationController implements RegistrationApi {
   }
 
   @Override
-  public ResponseEntity<RegistrationDto> updateRegistration(final Integer rid,
-                                                            final RegistrationDto input) {
+  public ResponseEntity<RegistrationDto> updateRegistration(final @PathVariable("rid") Integer rid,
+                                                            final @RequestBody
+                                                            RegistrationDto input) {
     if (!this.registrationService.getDao().existsById(rid)) {
       LOG.error("Registration [{}] not found", input.getSid());
       return new ResponseEntity<>(HttpStatus.NOT_FOUND);
