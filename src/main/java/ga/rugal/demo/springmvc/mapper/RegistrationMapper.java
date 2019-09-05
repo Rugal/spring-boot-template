@@ -4,6 +4,7 @@ import ga.rugal.demo.core.entity.Registration;
 import ga.rugal.demo.openapi.model.NewRegistrationDto;
 import ga.rugal.demo.openapi.model.RegistrationDto;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
@@ -15,6 +16,7 @@ import org.mapstruct.factory.Mappers;
  * @author Rugal Bernstein
  */
 @Mapper(config = CentralConfig.class)
+@SuppressFBWarnings("UUF_UNUSED_PUBLIC_OR_PROTECTED_FIELD")
 public interface RegistrationMapper {
 
   RegistrationMapper INSTANCE = Mappers.getMapper(RegistrationMapper.class);

@@ -5,7 +5,7 @@
   <parent>
     <groupId>ga.rugal</groupId>
     <artifactId>parent</artifactId>
-    <version>1.4.0</version>
+    <version>1.4.1-SNAPSHOT</version>
   </parent>
 
   <artifactId>demo</artifactId>
@@ -20,7 +20,7 @@
     <url>https://github.com/Rugal/spring-boot-template</url>
     <tag>HEAD</tag>
   </scm>
-  
+
   <ciManagement>
     <system>circleci</system>
     <url>https://circleci.com/gh/Rugal/spring-boot-template</url>
@@ -31,6 +31,7 @@
     <skip.surefire.tests>true</skip.surefire.tests>
     <skip.failsafe.tests>true</skip.failsafe.tests>
     <jacoco.skip.coverage.check>false</jacoco.skip.coverage.check>
+    <openapi.codegen.skipIfSpecIsUnchanged>false</openapi.codegen.skipIfSpecIsUnchanged>
   </properties>
 
   <dependencies>
@@ -101,6 +102,10 @@
     <dependency>
       <groupId>com.github.javafaker</groupId>
       <artifactId>javafaker</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.github.spotbugs</groupId>
+      <artifactId>spotbugs-annotations</artifactId>
     </dependency>
     <!-- flyway -->
     <dependency>
@@ -176,9 +181,6 @@
       <plugin>
         <groupId>org.openapitools</groupId>
         <artifactId>openapi-generator-maven-plugin</artifactId>
-        <configuration>
-          <skipIfSpecIsUnchanged>false</skipIfSpecIsUnchanged>
-        </configuration>
         <dependencies>
           <dependency>
             <groupId>ga.rugal</groupId>

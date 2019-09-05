@@ -4,6 +4,7 @@ import ga.rugal.demo.core.entity.Student;
 import ga.rugal.demo.openapi.model.NewStudentDto;
 import ga.rugal.demo.openapi.model.StudentDto;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
@@ -13,6 +14,7 @@ import org.mapstruct.factory.Mappers;
  * @author Rugal Bernstein
  */
 @Mapper(config = CentralConfig.class)
+@SuppressFBWarnings("UUF_UNUSED_PUBLIC_OR_PROTECTED_FIELD")
 public interface StudentMapper {
 
   StudentMapper INSTANCE = Mappers.getMapper(StudentMapper.class);
