@@ -2,8 +2,8 @@ package ga.rugal.demo.springmvc.controller;
 
 import ga.rugal.IntegrationTestBase;
 
-import org.junit.Before;
-import org.junit.Ignore;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
@@ -17,7 +17,7 @@ import org.springframework.web.context.WebApplicationContext;
  * @author rugal
  */
 @ContextConfiguration(classes = config.SpringMvcApplicationContext.class)
-@Ignore
+@Disabled
 @SpringBootTest
 @WebAppConfiguration
 public abstract class ControllerIntegrationTestBase extends IntegrationTestBase {
@@ -27,7 +27,7 @@ public abstract class ControllerIntegrationTestBase extends IntegrationTestBase 
 
   public MockMvc mockMvc;
 
-  @Before
+  @BeforeEach
   public void setup() {
     this.mockMvc = MockMvcBuilders.webAppContextSetup(this.wac).build();
   }

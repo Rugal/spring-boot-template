@@ -4,9 +4,9 @@ import ga.rugal.UnitTestBase;
 import ga.rugal.demo.core.dao.RegistrationDao;
 import ga.rugal.demo.core.entity.Registration;
 
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
@@ -27,7 +27,7 @@ public class RegistrationServiceImplTest extends UnitTestBase {
   @MockBean
   private RegistrationDao registrationDao;
 
-  @Before
+  @BeforeEach
   public void before() {
     //We do it here for covering setter
     this.registrationService.setDao(this.registrationDao);
@@ -35,7 +35,7 @@ public class RegistrationServiceImplTest extends UnitTestBase {
 
   @Test
   public void test() {
-    Assert.assertNotNull(this.registration);
-    Assert.assertNotNull(this.registrationService.getDao());
+    Assertions.assertNotNull(this.registration);
+    Assertions.assertNotNull(this.registrationService.getDao());
   }
 }

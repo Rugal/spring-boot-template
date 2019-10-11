@@ -29,8 +29,8 @@ import ga.rugal.demo.springmvc.mapper.RegistrationMapper;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.SneakyThrows;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.http.MediaType;
@@ -79,7 +79,7 @@ public class RegistrationControllerTest extends ControllerUnitTestBase {
   @Autowired
   private Registration registration;
 
-  @Before
+  @BeforeEach
   public void setUp() {
     this.controller.setRegistrationService(this.registrationService);
     this.controller.setStudentService(this.studentService);

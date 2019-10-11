@@ -3,8 +3,8 @@ package ga.rugal.demo.core.service.impl;
 import ga.rugal.IntegrationTestBase;
 import ga.rugal.demo.core.service.CourseService;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
@@ -18,6 +18,6 @@ public class CourseServiceImplIntegrationTest extends IntegrationTestBase {
 
   @Test
   public void test() {
-    Assert.assertNotNull(this.courseService.getDao());
+    Assertions.assertNotNull(this.courseService.getDao());
   }
 }

@@ -4,9 +4,9 @@ import ga.rugal.UnitTestBase;
 import ga.rugal.demo.core.dao.StudentDao;
 import ga.rugal.demo.core.entity.Student;
 
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
@@ -24,14 +24,14 @@ public class StudentServiceImplTest extends UnitTestBase {
   @MockBean
   private StudentDao studentDao;
 
-  @Before
+  @BeforeEach
   public void before() {
     this.studentService.setDao(this.studentDao);
   }
 
   @Test
   public void test() {
-    Assert.assertNotNull(this.student);
-    Assert.assertNotNull(this.studentService.getDao());
+    Assertions.assertNotNull(this.student);
+    Assertions.assertNotNull(this.studentService.getDao());
   }
 }

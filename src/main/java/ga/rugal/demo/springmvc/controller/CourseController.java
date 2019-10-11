@@ -56,7 +56,7 @@ public class CourseController implements CourseApi {
     LOG.info("Get course [{}]", cid);
     return this.courseService.getDao().existsById(cid)
            ? new ResponseEntity<>(CourseMapper.INSTANCE.from(this.courseService.getDao()
-        .findById(cid).get()),
+                    .findById(cid).get()),
                                   HttpStatus.OK)
            : new ResponseEntity<>(HttpStatus.NOT_FOUND);
   }
@@ -71,7 +71,7 @@ public class CourseController implements CourseApi {
     course.setCid(cid);
     LOG.info("Update course [{}]", cid);
     return new ResponseEntity<>(CourseMapper.INSTANCE.from(this.courseService.getDao()
-      .save(course)),
+            .save(course)),
                                 HttpStatus.OK);
   }
 }

@@ -13,8 +13,8 @@ import ga.rugal.demo.springmvc.mapper.StudentMapper;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.SneakyThrows;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 
@@ -49,7 +49,7 @@ public class StudentControllerIntegrationTest extends ControllerIntegrationTestB
   public void deleteStudent_204() {
     this.student.setSid(null);
     final Student save = this.studentService.getDao().save(this.student);
-    Assert.assertTrue(this.studentService.getDao().existsById(save.getSid()));
+    Assertions.assertTrue(this.studentService.getDao().existsById(save.getSid()));
 
     this.mockMvc.perform(delete("/student/" + save.getSid())
       .accept(MediaType.APPLICATION_JSON_UTF8))
@@ -86,7 +86,7 @@ public class StudentControllerIntegrationTest extends ControllerIntegrationTestB
   public void updateStudent_200() {
     this.student.setSid(null);
     final Student save = this.studentService.getDao().save(this.student);
-    Assert.assertTrue(this.studentService.getDao().existsById(save.getSid()));
+    Assertions.assertTrue(this.studentService.getDao().existsById(save.getSid()));
 
     this.mockMvc.perform(put("/student/" + save.getSid())
       .contentType(MediaType.APPLICATION_JSON_UTF8)

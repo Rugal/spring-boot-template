@@ -23,8 +23,8 @@ import ga.rugal.demo.springmvc.mapper.StudentMapper;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.SneakyThrows;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.http.MediaType;
@@ -55,7 +55,7 @@ public class StudentControllerTest extends ControllerUnitTestBase {
   @Autowired
   private Student student;
 
-  @Before
+  @BeforeEach
   public void setUp() {
     this.controller.setStudentService(this.studentService);
     given(this.studentService.getDao()).willReturn(this.studentDao);
