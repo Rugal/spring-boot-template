@@ -1,0 +1,22 @@
+type Query {
+  course(cid: Int): Course
+  student(sid: Int): Student
+  registration(rid: Int): Registration
+}
+
+type Course {
+  cid: Int!
+  name: String
+}
+
+type Student {
+  sid: Int!
+  name: String
+}
+
+type Registration {
+  rid: Int!
+  grade: Int
+  student: Student
+  course: Course
+}

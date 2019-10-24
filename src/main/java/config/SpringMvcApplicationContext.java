@@ -10,7 +10,6 @@ import org.springframework.web.servlet.HandlerAdapter;
 import org.springframework.web.servlet.config.annotation.ContentNegotiationConfigurer;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.handler.AbstractHandlerMapping;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter;
@@ -25,7 +24,6 @@ import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandl
  */
 @ComponentScan(basePackageClasses = PackageInfo.class)
 @Configuration
-@EnableWebMvc
 public class SpringMvcApplicationContext implements WebMvcConfigurer {
 
   @Override
@@ -41,6 +39,8 @@ public class SpringMvcApplicationContext implements WebMvcConfigurer {
 
   /**
    * Handler adapter.
+   *
+   * @return handler adapter object
    */
   @Bean
   public HandlerAdapter handlerAdapter() {
@@ -49,6 +49,8 @@ public class SpringMvcApplicationContext implements WebMvcConfigurer {
 
   /**
    * Handler mapping.
+   *
+   * @return handler mapping object
    */
   @Bean
   public AbstractHandlerMapping defaultAnnotationHandlerMapping() {
@@ -60,8 +62,8 @@ public class SpringMvcApplicationContext implements WebMvcConfigurer {
   @Override
   public void addCorsMappings(final CorsRegistry registry) {
     registry.addMapping("/**")
-      .allowedOrigins("*")
-      .allowedMethods("*")
-      .allowedHeaders("*");
+            .allowedOrigins("*")
+            .allowedMethods("*")
+            .allowedHeaders("*");
   }
 }
