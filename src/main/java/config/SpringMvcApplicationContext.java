@@ -6,13 +6,12 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
-import org.springframework.web.servlet.HandlerAdapter;
 import org.springframework.web.servlet.config.annotation.ContentNegotiationConfigurer;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.handler.AbstractHandlerMapping;
-import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 
 /**
@@ -24,27 +23,22 @@ import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandl
  */
 @ComponentScan(basePackageClasses = PackageInfo.class)
 @Configuration
+@EnableWebMvc
 public class SpringMvcApplicationContext implements WebMvcConfigurer {
 
   @Override
-  public void configureDefaultServletHandling(final DefaultServletHandlerConfigurer configurer) {
-    configurer.enable();
+  public void addResourceHandlers(final ResourceHandlerRegistry registry) {
+    registry.addResourceHandler("/**")
+            .addResourceLocations("classpath:/static/",
+                                  "classpath:/META-INF/resources/",
+                                  "classpath:/resources/ ",
+                                  "classpath:/public/");
   }
 
   @Override
   public void configureContentNegotiation(final ContentNegotiationConfigurer configurer) {
     configurer.favorPathExtension(false).favorParameter(false);
     configurer.defaultContentType(MediaType.APPLICATION_JSON);
-  }
-
-  /**
-   * Handler adapter.
-   *
-   * @return handler adapter object
-   */
-  @Bean
-  public HandlerAdapter handlerAdapter() {
-    return new RequestMappingHandlerAdapter();
   }
 
   /**
