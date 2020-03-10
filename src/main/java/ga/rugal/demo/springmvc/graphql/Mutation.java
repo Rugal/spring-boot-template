@@ -1,4 +1,4 @@
-package ga.rugal.demo.core.query;
+package ga.rugal.demo.springmvc.graphql;
 
 import ga.rugal.demo.core.dao.CourseDao;
 import ga.rugal.demo.core.entity.Course;
@@ -18,6 +18,13 @@ public class Mutation implements GraphQLMutationResolver {
   @Autowired
   private CourseDao courseDao;
 
+  /**
+   * create course with course name.
+   *
+   * @param name course name
+   *
+   * @return saved course object
+   */
   public Course createCourse(final String name) {
     final Course course = new Course();
     course.setName(name);

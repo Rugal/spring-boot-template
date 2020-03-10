@@ -1,4 +1,4 @@
-package ga.rugal.demo.core.query;
+package ga.rugal.demo.springmvc.graphql;
 
 import java.util.Optional;
 
