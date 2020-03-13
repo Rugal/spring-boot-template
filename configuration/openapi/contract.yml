@@ -1,16 +1,16 @@
 openapi: 3.0.0
 # Added by API Auto Mocking Plugin
 servers:
-  - description: SwaggerHub API Auto Mocking
-    url: https://virtserver.swaggerhub.com/RugalBernstein/template/1.0.0
+  - description: localhost
+    url: http://localhost:8080
 
 info:
   description: This is a simple API
   version: 1.0.0
-  title: Simple Inventory API
+  title: Spring Boot Template Sample API
   # put the contact info for your development or API team
   contact:
-    email: rugal.bernstein.0@gmail.com
+    email: this@rug.al
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
@@ -28,6 +28,13 @@ tags:
 #  ----------------------------------------------------------
 
 components:
+  securitySchemes:
+    # DO NOT CHANGE THE NEXT LINE
+    bearerAuth:
+    # DO NOT CHANGE THE PREVIOUS LINE
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
   schemas:
     NewStudent:
       type: object
@@ -105,7 +112,6 @@ components:
 
 
 #  ----------------------------------------------------------
-
 
 paths:
   /student/{sid}:
@@ -192,6 +198,8 @@ paths:
           $ref: '#/components/schemas/Response406'
   /student:
     post:
+      security:
+        - bearerAuth: []
       tags:
         - student
       summary: Create student
@@ -308,6 +316,8 @@ paths:
           $ref: '#/components/schemas/Response406'
   /course:
     post:
+      security:
+        - bearerAuth: []
       tags:
         - course
       summary: Create course
@@ -424,6 +434,8 @@ paths:
           $ref: '#/components/schemas/Response406'
   /registration:
     post:
+      security:
+        - bearerAuth: []
       tags:
         - registration
       summary: Create registration
