@@ -1,3 +1,19 @@
 type Mutation {
-  createCourse(name: String!) : Course!
+  addCourse(input: CourseInput!): Course!
+  addStudent(input: StudentInput!): Student!
+  addRegistration(input: RegistrationInput!): Registration!
+}
+
+input CourseInput {
+  name: String!
+}
+
+input StudentInput {
+  name: String!
+}
+
+input RegistrationInput {
+  grade: Int
+  sid: Int!
+  cid: Int!
 }

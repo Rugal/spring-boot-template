@@ -1,8 +1,8 @@
 package ga.rugal.demo.springmvc.mapper;
 
 import ga.rugal.demo.core.entity.Course;
-import ga.rugal.demo.openapi.model.CourseDto;
-import ga.rugal.demo.openapi.model.NewCourseDto;
+import ga.rugal.demo.graphql.CourseDto;
+import ga.rugal.demo.graphql.CourseInputDto;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.mapstruct.Mapper;
@@ -17,13 +17,11 @@ import org.mapstruct.factory.Mappers;
 @SuppressFBWarnings("UUF_UNUSED_PUBLIC_OR_PROTECTED_FIELD")
 public interface CourseMapper {
 
-  CourseMapper INSTANCE = Mappers.getMapper(CourseMapper.class);
+  CourseMapper I = Mappers.getMapper(CourseMapper.class);
 
-  Course to(NewCourseDto course);
+  Course to(CourseInputDto course);
 
   Course to(CourseDto course);
 
   CourseDto from(Course course);
-
-  NewCourseDto from2(Course course);
 }

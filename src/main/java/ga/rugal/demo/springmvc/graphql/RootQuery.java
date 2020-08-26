@@ -1,13 +1,15 @@
 package ga.rugal.demo.springmvc.graphql;
 
-import java.util.Optional;
-
 import ga.rugal.demo.core.dao.CourseDao;
 import ga.rugal.demo.core.dao.RegistrationDao;
 import ga.rugal.demo.core.dao.StudentDao;
-import ga.rugal.demo.core.entity.Course;
-import ga.rugal.demo.core.entity.Registration;
-import ga.rugal.demo.core.entity.Student;
+import ga.rugal.demo.graphql.CourseDto;
+import ga.rugal.demo.graphql.QueryResolver;
+import ga.rugal.demo.graphql.RegistrationDto;
+import ga.rugal.demo.graphql.StudentDto;
+import ga.rugal.demo.springmvc.mapper.CourseMapper;
+import ga.rugal.demo.springmvc.mapper.RegistrationMapper;
+import ga.rugal.demo.springmvc.mapper.StudentMapper;
 
 import com.coxautodev.graphql.tools.GraphQLQueryResolver;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +21,7 @@ import org.springframework.stereotype.Component;
  * @author Rugal Bernstein
  */
 @Component
-public class RootQuery implements GraphQLQueryResolver {
+public class RootQuery implements GraphQLQueryResolver, QueryResolver {
 
   @Autowired
   private CourseDao courseDao;
@@ -30,15 +32,18 @@ public class RootQuery implements GraphQLQueryResolver {
   @Autowired
   private RegistrationDao registrationDao;
 
-  public Optional<Student> getStudent(final int id) {
-    return this.studentDao.findById(id);
+  @Override
+  public StudentDto student(final Integer sid) throws Exception {
+    return StudentMapper.I.from(this.studentDao.findById(sid).orElse(null));
   }
 
-  public Optional<Course> getCourse(final int id) {
-    return this.courseDao.findById(id);
+  @Override
+  public CourseDto course(final Integer cid) throws Exception {
+    return CourseMapper.I.from(this.courseDao.findById(cid).orElse(null));
   }
 
-  public Optional<Registration> getRegistration(final int id) {
-    return this.registrationDao.findById(id);
+  @Override
+  public RegistrationDto registration(final Integer rid) throws Exception {
+    return RegistrationMapper.I.from(this.registrationDao.findById(rid).orElse(null));
   }
 }

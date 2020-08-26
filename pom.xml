@@ -5,7 +5,7 @@
   <parent>
     <groupId>ga.rugal</groupId>
     <artifactId>parent</artifactId>
-    <version>1.9.0</version>
+    <version>1.11.0-SNAPSHOT</version>
   </parent>
 
   <artifactId>demo</artifactId>
@@ -27,7 +27,6 @@
   </ciManagement>
 
   <properties>
-    <openapi.plugin.version>4.2.3</openapi.plugin.version>
     <!-- test switch -->
     <skip.surefire.tests>true</skip.surefire.tests>
     <skip.failsafe.tests>true</skip.failsafe.tests>
@@ -156,6 +155,10 @@
       <artifactId>playground-spring-boot-starter</artifactId>
     </dependency>
     <!-- Auto Append -->
+    <dependency>
+      <groupId>javax.validation</groupId>
+      <artifactId>validation-api</artifactId>
+    </dependency>
   </dependencies>
 
   <build>
@@ -200,28 +203,10 @@
         <groupId>org.jacoco</groupId>
         <artifactId>jacoco-maven-plugin</artifactId>
       </plugin>
-      <!-- openapi codegen -->
+      <!-- graphql codegen -->
       <plugin>
-        <groupId>org.openapitools</groupId>
-        <artifactId>openapi-generator-maven-plugin</artifactId>
-        <dependencies>
-          <dependency>
-            <groupId>ga.rugal</groupId>
-            <artifactId>feign-client-generator</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
-          </dependency>
-        </dependencies>
-        <executions>
-          <execution>
-            <id>openapi-codegen-server</id>
-          </execution>
-          <execution>
-            <id>openapi-codegen-client</id>
-            <configuration>
-              <generatorName>spring-boot-feign</generatorName>
-            </configuration>
-          </execution>
-        </executions>
+        <groupId>io.github.kobylynskyi</groupId>
+        <artifactId>graphql-codegen-maven-plugin</artifactId>
       </plugin>
     </plugins>
   </build>
