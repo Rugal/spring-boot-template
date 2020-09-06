@@ -1,9 +1,6 @@
 package config;
 
-import ga.rugal.demo.springmvc.controller.PackageInfo;
-
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
 import org.springframework.web.servlet.config.annotation.ContentNegotiationConfigurer;
@@ -21,7 +18,6 @@ import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandl
  * @author Rugal Bernstein
  * @since 0.2
  */
-@ComponentScan(basePackageClasses = PackageInfo.class)
 @Configuration
 @EnableWebMvc
 public class SpringMvcApplicationContext implements WebMvcConfigurer {
@@ -29,10 +25,10 @@ public class SpringMvcApplicationContext implements WebMvcConfigurer {
   @Override
   public void addResourceHandlers(final ResourceHandlerRegistry registry) {
     registry.addResourceHandler("/**")
-            .addResourceLocations("classpath:/static/",
-                                  "classpath:/META-INF/resources/",
-                                  "classpath:/resources/ ",
-                                  "classpath:/public/");
+      .addResourceLocations("classpath:/static/",
+                            "classpath:/META-INF/resources/",
+                            "classpath:/resources/ ",
+                            "classpath:/public/");
   }
 
   @Override
@@ -56,8 +52,8 @@ public class SpringMvcApplicationContext implements WebMvcConfigurer {
   @Override
   public void addCorsMappings(final CorsRegistry registry) {
     registry.addMapping("/**")
-            .allowedOrigins("*")
-            .allowedMethods("*")
-            .allowedHeaders("*");
+      .allowedOrigins("*")
+      .allowedMethods("*")
+      .allowedHeaders("*");
   }
 }
