@@ -5,8 +5,6 @@ import ga.rugal.demo.graphql.RegistrationDto;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.Mappings;
 import org.mapstruct.factory.Mappers;
 
 /**
@@ -20,8 +18,5 @@ public interface RegistrationMapper {
 
   RegistrationMapper I = Mappers.getMapper(RegistrationMapper.class);
 
-  @Mappings({
-    @Mapping(source = "registration.course", target = "course"),
-    @Mapping(source = "registration.student", target = "student")})
   RegistrationDto from(Registration registration);
 }

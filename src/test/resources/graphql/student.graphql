@@ -1,0 +1,6 @@
+query {
+  student(sid: 1) {
+    sid
+    name
+  }
+}

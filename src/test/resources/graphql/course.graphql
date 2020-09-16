@@ -1,0 +1,6 @@
+query {
+  course(cid: 1) {
+    cid
+    name
+  }
+}

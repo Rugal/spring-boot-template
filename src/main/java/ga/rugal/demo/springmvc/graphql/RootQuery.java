@@ -1,8 +1,8 @@
 package ga.rugal.demo.springmvc.graphql;
 
-import ga.rugal.demo.core.dao.CourseDao;
-import ga.rugal.demo.core.dao.RegistrationDao;
-import ga.rugal.demo.core.dao.StudentDao;
+import ga.rugal.demo.core.service.CourseService;
+import ga.rugal.demo.core.service.RegistrationService;
+import ga.rugal.demo.core.service.StudentService;
 import ga.rugal.demo.graphql.CourseDto;
 import ga.rugal.demo.graphql.QueryResolver;
 import ga.rugal.demo.graphql.RegistrationDto;
@@ -24,26 +24,26 @@ import org.springframework.stereotype.Component;
 public class RootQuery implements GraphQLQueryResolver, QueryResolver {
 
   @Autowired
-  private CourseDao courseDao;
+  private CourseService courseService;
 
   @Autowired
-  private StudentDao studentDao;
+  private StudentService studentService;
 
   @Autowired
-  private RegistrationDao registrationDao;
+  private RegistrationService registrationService;
 
   @Override
   public StudentDto student(final Integer sid) throws Exception {
-    return StudentMapper.I.from(this.studentDao.findById(sid).orElse(null));
+    return StudentMapper.I.from(this.studentService.getDao().findById(sid).orElse(null));
   }
 
   @Override
   public CourseDto course(final Integer cid) throws Exception {
-    return CourseMapper.I.from(this.courseDao.findById(cid).orElse(null));
+    return CourseMapper.I.from(this.courseService.getDao().findById(cid).orElse(null));
   }
 
   @Override
   public RegistrationDto registration(final Integer rid) throws Exception {
-    return RegistrationMapper.I.from(this.registrationDao.findById(rid).orElse(null));
+    return RegistrationMapper.I.from(this.registrationService.getDao().findById(rid).orElse(null));
   }
 }

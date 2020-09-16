@@ -20,7 +20,7 @@ services:
   flyway:
     container_name: flyway
     image: flyway/flyway
-    command: clean migrate
+    command: -configFiles=/flyway/conf/local.properties clean migrate
     volumes:
       - ${PWD}/configuration/db:/flyway/conf
       - ${PWD}/configuration/db/migration:/flyway/sql
